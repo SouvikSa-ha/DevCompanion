@@ -1,0 +1,1502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DevCom_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Audios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Audio_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
+          <Property Name="Subtext_Type" Type="int" />
+          <Property Name="Subtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Audio_link" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BoardComponents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content_Id" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Board_Id" Type="int" Nullable="false" />
+          <Property Name="PositionX" Type="int" Nullable="false" />
+          <Property Name="PositionY" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Canvases">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Canvas_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
+          <Property Name="Subtext_Type" Type="int" />
+          <Property Name="Subtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Canvas_link" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Collaboration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Board_Id" Type="int" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="Permission" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Color_Palletes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pallete_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Data" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="File_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
+          <Property Name="Subtext_Type" Type="int" />
+          <Property Name="Subtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="File_link" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Images">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Image_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
+          <Property Name="Subtext_Type" Type="int" />
+          <Property Name="Subtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Image_link" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NoteContents">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content_Id" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Notepad_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notepads">
+          <Key>
+            <PropertyRef Name="Notepad_Id" />
+          </Key>
+          <Property Name="Notepad_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="10" />
+          <Property Name="Creation_Date" Type="datetime" Nullable="false" />
+          <Property Name="Update_Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonalVault">
+          <Key>
+            <PropertyRef Name="Vault_Id" />
+          </Key>
+          <Property Name="Vault_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="PlatformName" Type="varchar" MaxLength="50" />
+          <Property Name="AccountMail" Type="varchar" MaxLength="50" />
+          <Property Name="AccountPassword" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="AlternativeMail" Type="varchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Reminders">
+          <Key>
+            <PropertyRef Name="Reminder_Id" />
+          </Key>
+          <Property Name="Reminder_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="Reminder_Time" Type="varchar" MaxLength="1" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Info" Type="nvarchar(max)" />
+          <Property Name="Deadline" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Tag_Id" />
+          </Key>
+          <Property Name="Tag_Id" Type="int" Nullable="false" />
+          <Property Name="Tag_Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="Task_Id" />
+          </Key>
+          <Property Name="Task_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="Short_Description" Type="nvarchar" MaxLength="400" />
+          <Property Name="Creation_Time" Type="datetime" Nullable="false" />
+          <Property Name="Target_Time" Type="datetime" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Icon" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Texts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
+          <Property Name="Subtext_Type" Type="int" />
+          <Property Name="Subtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UI_Designs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UI_Id" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Data" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Update_Histories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Notepad_Id" Type="int" />
+          <Property Name="Task_Id" Type="int" />
+          <Property Name="Reminder_Id" Type="int" />
+          <Property Name="Board_Id" Type="int" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Active" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="AlternativeEmail" Type="varchar" MaxLength="50" />
+          <Property Name="Image" Type="varchar" MaxLength="100" />
+          <Property Name="Question_2FA" Type="varchar" MaxLength="100" />
+          <Property Name="Answer_2FA" Type="varchar" MaxLength="50" />
+          <Property Name="VaultPassword" Type="nvarchar" MaxLength="200" />
+          <Property Name="EmailConfirmed" Type="bit" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Video_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+          <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
+          <Property Name="Subtext_Type" Type="int" />
+          <Property Name="Subtext" Type="nvarchar" MaxLength="500" />
+          <Property Name="Video_link" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Visual_Boards">
+          <Key>
+            <PropertyRef Name="Board_Id" />
+          </Key>
+          <Property Name="Board_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Workflow_Designs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Workflow_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Data" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Audios__Tag_Id__3C69FB99">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Audios" Type="Self.Audios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Audios">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BoardComp__Board__6B24EA82">
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="1" />
+          <End Role="BoardComponents" Type="Self.BoardComponents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visual_Boards">
+              <PropertyRef Name="Board_Id" />
+            </Principal>
+            <Dependent Role="BoardComponents">
+              <PropertyRef Name="Board_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Canvases__Tag_Id__412EB0B6">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Canvases" Type="Self.Canvases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Canvases">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Collabora__Board__656C112C">
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="1" />
+          <End Role="Collaboration" Type="Self.Collaboration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visual_Boards">
+              <PropertyRef Name="Board_Id" />
+            </Principal>
+            <Dependent Role="Collaboration">
+              <PropertyRef Name="Board_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Collaborati__Uid__66603565">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Collaboration" Type="Self.Collaboration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Collaboration">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__Tag_Id__37A5467C">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Images__Tag_Id__45F365D3">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Images" Type="Self.Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Images">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NoteConte__Notep__4F7CD00D">
+          <End Role="Notepads" Type="Self.Notepads" Multiplicity="1" />
+          <End Role="NoteContents" Type="Self.NoteContents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notepads">
+              <PropertyRef Name="Notepad_Id" />
+            </Principal>
+            <Dependent Role="NoteContents">
+              <PropertyRef Name="Notepad_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notepads__Tag_Id__2E1BDC42">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Notepads" Type="Self.Notepads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Notepads">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notepads__Uid__2D27B809">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Notepads" Type="Self.Notepads" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Notepads">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonalVau__Uid__0AD2A005">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="PersonalVault" Type="Self.PersonalVault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="PersonalVault">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reminders__Uid__286302EC">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reminders" Type="Self.Reminders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Reminders">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__Uid__239E4DCF">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Texts__Tag_Id__32E0915F">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Texts" Type="Self.Texts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Texts">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Board__72C60C4A">
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visual_Boards">
+              <PropertyRef Name="Board_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Board_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Notep__6FE99F9F">
+          <End Role="Notepads" Type="Self.Notepads" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notepads">
+              <PropertyRef Name="Notepad_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Notepad_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Remin__71D1E811">
+          <End Role="Reminders" Type="Self.Reminders" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reminders">
+              <PropertyRef Name="Reminder_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Reminder_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Task___70DDC3D8">
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="Task_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Task_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hist__Uid__73BA3083">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__Tag_Id__4AB81AF0">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visual_Bo__Tag_I__5535A963">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Visual_Boards">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visual_Boar__Uid__5441852A">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Visual_Boards">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DevCom_DBModelStoreContainer">
+          <EntitySet Name="Audios" EntityType="Self.Audios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BoardComponents" EntityType="Self.BoardComponents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Canvases" EntityType="Self.Canvases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Collaboration" EntityType="Self.Collaboration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Color_Palletes" EntityType="Self.Color_Palletes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NoteContents" EntityType="Self.NoteContents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notepads" EntityType="Self.Notepads" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalVault" EntityType="Self.PersonalVault" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reminders" EntityType="Self.Reminders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Texts" EntityType="Self.Texts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UI_Designs" EntityType="Self.UI_Designs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Update_Histories" EntityType="Self.Update_Histories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Visual_Boards" EntityType="Self.Visual_Boards" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Workflow_Designs" EntityType="Self.Workflow_Designs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Audios__Tag_Id__3C69FB99" Association="Self.FK__Audios__Tag_Id__3C69FB99">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Audios" EntitySet="Audios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BoardComp__Board__6B24EA82" Association="Self.FK__BoardComp__Board__6B24EA82">
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+            <End Role="BoardComponents" EntitySet="BoardComponents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Canvases__Tag_Id__412EB0B6" Association="Self.FK__Canvases__Tag_Id__412EB0B6">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Canvases" EntitySet="Canvases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Collabora__Board__656C112C" Association="Self.FK__Collabora__Board__656C112C">
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+            <End Role="Collaboration" EntitySet="Collaboration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Collaborati__Uid__66603565" Association="Self.FK__Collaborati__Uid__66603565">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Collaboration" EntitySet="Collaboration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__Tag_Id__37A5467C" Association="Self.FK__Files__Tag_Id__37A5467C">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Images__Tag_Id__45F365D3" Association="Self.FK__Images__Tag_Id__45F365D3">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Images" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NoteConte__Notep__4F7CD00D" Association="Self.FK__NoteConte__Notep__4F7CD00D">
+            <End Role="Notepads" EntitySet="Notepads" />
+            <End Role="NoteContents" EntitySet="NoteContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notepads__Tag_Id__2E1BDC42" Association="Self.FK__Notepads__Tag_Id__2E1BDC42">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Notepads" EntitySet="Notepads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notepads__Uid__2D27B809" Association="Self.FK__Notepads__Uid__2D27B809">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notepads" EntitySet="Notepads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonalVau__Uid__0AD2A005" Association="Self.FK__PersonalVau__Uid__0AD2A005">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PersonalVault" EntitySet="PersonalVault" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reminders__Uid__286302EC" Association="Self.FK__Reminders__Uid__286302EC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reminders" EntitySet="Reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__Uid__239E4DCF" Association="Self.FK__Tasks__Uid__239E4DCF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Texts__Tag_Id__32E0915F" Association="Self.FK__Texts__Tag_Id__32E0915F">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Texts" EntitySet="Texts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Board__72C60C4A" Association="Self.FK__Update_Hi__Board__72C60C4A">
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Notep__6FE99F9F" Association="Self.FK__Update_Hi__Notep__6FE99F9F">
+            <End Role="Notepads" EntitySet="Notepads" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Remin__71D1E811" Association="Self.FK__Update_Hi__Remin__71D1E811">
+            <End Role="Reminders" EntitySet="Reminders" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Task___70DDC3D8" Association="Self.FK__Update_Hi__Task___70DDC3D8">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hist__Uid__73BA3083" Association="Self.FK__Update_Hist__Uid__73BA3083">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__Tag_Id__4AB81AF0" Association="Self.FK__Videos__Tag_Id__4AB81AF0">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visual_Bo__Tag_I__5535A963" Association="Self.FK__Visual_Bo__Tag_I__5535A963">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visual_Boar__Uid__5441852A" Association="Self.FK__Visual_Boar__Uid__5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DevCom_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Audio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Audio_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Subtext_Type" Type="Int32" />
+          <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Audio_link" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Audios__Tag_Id__3C69FB99" FromRole="Audios" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="BoardComponent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content_Id" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Board_Id" Type="Int32" Nullable="false" />
+          <Property Name="PositionX" Type="Int32" Nullable="false" />
+          <Property Name="PositionY" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__BoardComp__Board__6B24EA82" FromRole="BoardComponents" ToRole="Visual_Boards" />
+        </EntityType>
+        <EntityType Name="Canvas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Canvas_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Subtext_Type" Type="Int32" />
+          <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Canvas_link" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Canvases__Tag_Id__412EB0B6" FromRole="Canvases" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="Collaboration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Board_Id" Type="Int32" Nullable="false" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="Permission" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Collabora__Board__656C112C" FromRole="Collaboration" ToRole="Visual_Boards" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Collaborati__Uid__66603565" FromRole="Collaboration" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Color_Palletes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pallete_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="File_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Subtext_Type" Type="Int32" />
+          <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="File_link" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Files__Tag_Id__37A5467C" FromRole="Files" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Image_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Subtext_Type" Type="Int32" />
+          <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Image_link" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Images__Tag_Id__45F365D3" FromRole="Images" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="NoteContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Content_Id" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notepad_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notepad" Relationship="Self.FK__NoteConte__Notep__4F7CD00D" FromRole="NoteContents" ToRole="Notepads" />
+        </EntityType>
+        <EntityType Name="Notepad">
+          <Key>
+            <PropertyRef Name="Notepad_Id" />
+          </Key>
+          <Property Name="Notepad_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Icon" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Update_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="NoteContents" Relationship="Self.FK__NoteConte__Notep__4F7CD00D" FromRole="Notepads" ToRole="NoteContents" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Notepads__Tag_Id__2E1BDC42" FromRole="Notepads" ToRole="Tags" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Notepads__Uid__2D27B809" FromRole="Notepads" ToRole="Users" />
+          <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Notep__6FE99F9F" FromRole="Notepads" ToRole="Update_Histories" />
+        </EntityType>
+        <EntityType Name="PersonalVault">
+          <Key>
+            <PropertyRef Name="Vault_Id" />
+          </Key>
+          <Property Name="Vault_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="PlatformName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AlternativeMail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__PersonalVau__Uid__0AD2A005" FromRole="PersonalVault" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Reminder">
+          <Key>
+            <PropertyRef Name="Reminder_Id" />
+          </Key>
+          <Property Name="Reminder_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="Reminder_Time" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Reminders__Uid__286302EC" FromRole="Reminders" ToRole="Users" />
+          <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Remin__71D1E811" FromRole="Reminders" ToRole="Update_Histories" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Tag_Id" />
+          </Key>
+          <Property Name="Tag_Id" Type="Int32" Nullable="false" />
+          <Property Name="Tag_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Audios" Relationship="Self.FK__Audios__Tag_Id__3C69FB99" FromRole="Tags" ToRole="Audios" />
+          <NavigationProperty Name="Canvases" Relationship="Self.FK__Canvases__Tag_Id__412EB0B6" FromRole="Tags" ToRole="Canvases" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__Files__Tag_Id__37A5467C" FromRole="Tags" ToRole="Files" />
+          <NavigationProperty Name="Images" Relationship="Self.FK__Images__Tag_Id__45F365D3" FromRole="Tags" ToRole="Images" />
+          <NavigationProperty Name="Notepads" Relationship="Self.FK__Notepads__Tag_Id__2E1BDC42" FromRole="Tags" ToRole="Notepads" />
+          <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__Tag_Id__32E0915F" FromRole="Tags" ToRole="Texts" />
+          <NavigationProperty Name="Videos" Relationship="Self.FK__Videos__Tag_Id__4AB81AF0" FromRole="Tags" ToRole="Videos" />
+          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Visual_Bo__Tag_I__5535A963" FromRole="Tags" ToRole="Visual_Boards" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="Task_Id" />
+          </Key>
+          <Property Name="Task_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="Short_Description" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Creation_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Target_Time" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Icon" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Tasks__Uid__239E4DCF" FromRole="Tasks" ToRole="Users" />
+          <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Task___70DDC3D8" FromRole="Tasks" ToRole="Update_Histories" />
+        </EntityType>
+        <EntityType Name="Text">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Subtext_Type" Type="Int32" />
+          <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Text1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Texts__Tag_Id__32E0915F" FromRole="Texts" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="UI_Designs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UI_Id" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Update_Histories">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notepad_Id" Type="Int32" />
+          <Property Name="Task_Id" Type="Int32" />
+          <Property Name="Reminder_Id" Type="Int32" />
+          <Property Name="Board_Id" Type="Int32" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Notepad" Relationship="Self.FK__Update_Hi__Notep__6FE99F9F" FromRole="Update_Histories" ToRole="Notepads" />
+          <NavigationProperty Name="Reminder" Relationship="Self.FK__Update_Hi__Remin__71D1E811" FromRole="Update_Histories" ToRole="Reminders" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__Update_Hi__Task___70DDC3D8" FromRole="Update_Histories" ToRole="Tasks" />
+          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Update_Hi__Board__72C60C4A" FromRole="Update_Histories" ToRole="Visual_Boards" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Update_Hist__Uid__73BA3083" FromRole="Update_Histories" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AlternativeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Question_2FA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Answer_2FA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VaultPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <NavigationProperty Name="Collaborations" Relationship="Self.FK__Collaborati__Uid__66603565" FromRole="Users" ToRole="Collaboration" />
+          <NavigationProperty Name="Notepads" Relationship="Self.FK__Notepads__Uid__2D27B809" FromRole="Users" ToRole="Notepads" />
+          <NavigationProperty Name="PersonalVaults" Relationship="Self.FK__PersonalVau__Uid__0AD2A005" FromRole="Users" ToRole="PersonalVault" />
+          <NavigationProperty Name="Reminders" Relationship="Self.FK__Reminders__Uid__286302EC" FromRole="Users" ToRole="Reminders" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__Uid__239E4DCF" FromRole="Users" ToRole="Tasks" />
+          <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hist__Uid__73BA3083" FromRole="Users" ToRole="Update_Histories" />
+          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Visual_Boar__Uid__5441852A" FromRole="Users" ToRole="Visual_Boards" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Video_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Subtext_Type" Type="Int32" />
+          <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Video_link" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Videos__Tag_Id__4AB81AF0" FromRole="Videos" ToRole="Tags" />
+        </EntityType>
+        <EntityType Name="Visual_Boards">
+          <Key>
+            <PropertyRef Name="Board_Id" />
+          </Key>
+          <Property Name="Board_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" />
+          <NavigationProperty Name="BoardComponents" Relationship="Self.FK__BoardComp__Board__6B24EA82" FromRole="Visual_Boards" ToRole="BoardComponents" />
+          <NavigationProperty Name="Collaborations" Relationship="Self.FK__Collabora__Board__656C112C" FromRole="Visual_Boards" ToRole="Collaboration" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Visual_Bo__Tag_I__5535A963" FromRole="Visual_Boards" ToRole="Tags" />
+          <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Board__72C60C4A" FromRole="Visual_Boards" ToRole="Update_Histories" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Visual_Boar__Uid__5441852A" FromRole="Visual_Boards" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Workflow_Designs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Workflow_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Data" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Audios__Tag_Id__3C69FB99">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Audios" Type="Self.Audio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Audios">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BoardComp__Board__6B24EA82">
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="1" />
+          <End Role="BoardComponents" Type="Self.BoardComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visual_Boards">
+              <PropertyRef Name="Board_Id" />
+            </Principal>
+            <Dependent Role="BoardComponents">
+              <PropertyRef Name="Board_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Canvases__Tag_Id__412EB0B6">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Canvases" Type="Self.Canvas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Canvases">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Collabora__Board__656C112C">
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="1" />
+          <End Role="Collaboration" Type="Self.Collaboration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visual_Boards">
+              <PropertyRef Name="Board_Id" />
+            </Principal>
+            <Dependent Role="Collaboration">
+              <PropertyRef Name="Board_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Collaborati__Uid__66603565">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Collaboration" Type="Self.Collaboration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Collaboration">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__Tag_Id__37A5467C">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Files" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Images__Tag_Id__45F365D3">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Images" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Images">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NoteConte__Notep__4F7CD00D">
+          <End Role="Notepads" Type="Self.Notepad" Multiplicity="1" />
+          <End Role="NoteContents" Type="Self.NoteContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notepads">
+              <PropertyRef Name="Notepad_Id" />
+            </Principal>
+            <Dependent Role="NoteContents">
+              <PropertyRef Name="Notepad_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notepads__Tag_Id__2E1BDC42">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Notepads" Type="Self.Notepad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Notepads">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Notepads__Uid__2D27B809">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Notepads" Type="Self.Notepad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Notepads">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Notep__6FE99F9F">
+          <End Role="Notepads" Type="Self.Notepad" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notepads">
+              <PropertyRef Name="Notepad_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Notepad_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonalVau__Uid__0AD2A005">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="PersonalVault" Type="Self.PersonalVault" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="PersonalVault">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reminders__Uid__286302EC">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Reminders" Type="Self.Reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Reminders">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Remin__71D1E811">
+          <End Role="Reminders" Type="Self.Reminder" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reminders">
+              <PropertyRef Name="Reminder_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Reminder_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Texts__Tag_Id__32E0915F">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Texts" Type="Self.Text" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Texts">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__Tag_Id__4AB81AF0">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visual_Bo__Tag_I__5535A963">
+          <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Tag_Id" />
+            </Principal>
+            <Dependent Role="Visual_Boards">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__Uid__239E4DCF">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Task___70DDC3D8">
+          <End Role="Tasks" Type="Self.Task" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="Task_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Task_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hi__Board__72C60C4A">
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="0..1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Visual_Boards">
+              <PropertyRef Name="Board_Id" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Board_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Update_Hist__Uid__73BA3083">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Update_Histories" Type="Self.Update_Histories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Update_Histories">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Visual_Boar__Uid__5441852A">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Visual_Boards">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DevCom_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Audios" EntityType="Self.Audio" />
+          <EntitySet Name="BoardComponents" EntityType="Self.BoardComponent" />
+          <EntitySet Name="Canvases" EntityType="Self.Canvas" />
+          <EntitySet Name="Collaborations" EntityType="Self.Collaboration" />
+          <EntitySet Name="Color_Palletes" EntityType="Self.Color_Palletes" />
+          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="Images" EntityType="Self.Image" />
+          <EntitySet Name="NoteContents" EntityType="Self.NoteContent" />
+          <EntitySet Name="Notepads" EntityType="Self.Notepad" />
+          <EntitySet Name="PersonalVaults" EntityType="Self.PersonalVault" />
+          <EntitySet Name="Reminders" EntityType="Self.Reminder" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="Texts" EntityType="Self.Text" />
+          <EntitySet Name="UI_Designs" EntityType="Self.UI_Designs" />
+          <EntitySet Name="Update_Histories" EntityType="Self.Update_Histories" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Videos" EntityType="Self.Video" />
+          <EntitySet Name="Visual_Boards" EntityType="Self.Visual_Boards" />
+          <EntitySet Name="Workflow_Designs" EntityType="Self.Workflow_Designs" />
+          <AssociationSet Name="FK__Audios__Tag_Id__3C69FB99" Association="Self.FK__Audios__Tag_Id__3C69FB99">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Audios" EntitySet="Audios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BoardComp__Board__6B24EA82" Association="Self.FK__BoardComp__Board__6B24EA82">
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+            <End Role="BoardComponents" EntitySet="BoardComponents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Canvases__Tag_Id__412EB0B6" Association="Self.FK__Canvases__Tag_Id__412EB0B6">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Canvases" EntitySet="Canvases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Collabora__Board__656C112C" Association="Self.FK__Collabora__Board__656C112C">
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+            <End Role="Collaboration" EntitySet="Collaborations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Collaborati__Uid__66603565" Association="Self.FK__Collaborati__Uid__66603565">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Collaboration" EntitySet="Collaborations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__Tag_Id__37A5467C" Association="Self.FK__Files__Tag_Id__37A5467C">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Images__Tag_Id__45F365D3" Association="Self.FK__Images__Tag_Id__45F365D3">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Images" EntitySet="Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NoteConte__Notep__4F7CD00D" Association="Self.FK__NoteConte__Notep__4F7CD00D">
+            <End Role="Notepads" EntitySet="Notepads" />
+            <End Role="NoteContents" EntitySet="NoteContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notepads__Tag_Id__2E1BDC42" Association="Self.FK__Notepads__Tag_Id__2E1BDC42">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Notepads" EntitySet="Notepads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Notepads__Uid__2D27B809" Association="Self.FK__Notepads__Uid__2D27B809">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Notepads" EntitySet="Notepads" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Notep__6FE99F9F" Association="Self.FK__Update_Hi__Notep__6FE99F9F">
+            <End Role="Notepads" EntitySet="Notepads" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonalVau__Uid__0AD2A005" Association="Self.FK__PersonalVau__Uid__0AD2A005">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PersonalVault" EntitySet="PersonalVaults" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reminders__Uid__286302EC" Association="Self.FK__Reminders__Uid__286302EC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reminders" EntitySet="Reminders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Remin__71D1E811" Association="Self.FK__Update_Hi__Remin__71D1E811">
+            <End Role="Reminders" EntitySet="Reminders" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Texts__Tag_Id__32E0915F" Association="Self.FK__Texts__Tag_Id__32E0915F">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Texts" EntitySet="Texts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__Tag_Id__4AB81AF0" Association="Self.FK__Videos__Tag_Id__4AB81AF0">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visual_Bo__Tag_I__5535A963" Association="Self.FK__Visual_Bo__Tag_I__5535A963">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__Uid__239E4DCF" Association="Self.FK__Tasks__Uid__239E4DCF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Task___70DDC3D8" Association="Self.FK__Update_Hi__Task___70DDC3D8">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hi__Board__72C60C4A" Association="Self.FK__Update_Hi__Board__72C60C4A">
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Update_Hist__Uid__73BA3083" Association="Self.FK__Update_Hist__Uid__73BA3083">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Visual_Boar__Uid__5441852A" Association="Self.FK__Visual_Boar__Uid__5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Visual_Boards" EntitySet="Visual_Boards" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DevCom_DBModelStoreContainer" CdmEntityContainer="DevCom_DBEntities">
+          <EntitySetMapping Name="Audios">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Audio">
+              <MappingFragment StoreEntitySet="Audios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Audio_Id" ColumnName="Audio_Id" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Subtext_Title" ColumnName="Subtext_Title" />
+                <ScalarProperty Name="Subtext_Type" ColumnName="Subtext_Type" />
+                <ScalarProperty Name="Subtext" ColumnName="Subtext" />
+                <ScalarProperty Name="Audio_link" ColumnName="Audio_link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoardComponents">
+            <EntityTypeMapping TypeName="DevCom_DBModel.BoardComponent">
+              <MappingFragment StoreEntitySet="BoardComponents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content_Id" ColumnName="Content_Id" />
+                <ScalarProperty Name="Board_Id" ColumnName="Board_Id" />
+                <ScalarProperty Name="PositionX" ColumnName="PositionX" />
+                <ScalarProperty Name="PositionY" ColumnName="PositionY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Canvases">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Canvas">
+              <MappingFragment StoreEntitySet="Canvases">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Canvas_Id" ColumnName="Canvas_Id" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Subtext_Title" ColumnName="Subtext_Title" />
+                <ScalarProperty Name="Subtext_Type" ColumnName="Subtext_Type" />
+                <ScalarProperty Name="Subtext" ColumnName="Subtext" />
+                <ScalarProperty Name="Canvas_link" ColumnName="Canvas_link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collaborations">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Collaboration">
+              <MappingFragment StoreEntitySet="Collaboration">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Board_Id" ColumnName="Board_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Color_Palletes">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Color_Palletes">
+              <MappingFragment StoreEntitySet="Color_Palletes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Pallete_Id" ColumnName="Pallete_Id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="DevCom_DBModel.File">
+              <MappingFragment StoreEntitySet="Files">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="File_Id" ColumnName="File_Id" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Subtext_Title" ColumnName="Subtext_Title" />
+                <ScalarProperty Name="Subtext_Type" ColumnName="Subtext_Type" />
+                <ScalarProperty Name="Subtext" ColumnName="Subtext" />
+                <ScalarProperty Name="File_link" ColumnName="File_link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Images">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Image">
+              <MappingFragment StoreEntitySet="Images">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Image_Id" ColumnName="Image_Id" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Subtext_Title" ColumnName="Subtext_Title" />
+                <ScalarProperty Name="Subtext_Type" ColumnName="Subtext_Type" />
+                <ScalarProperty Name="Subtext" ColumnName="Subtext" />
+                <ScalarProperty Name="Image_link" ColumnName="Image_link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NoteContents">
+            <EntityTypeMapping TypeName="DevCom_DBModel.NoteContent">
+              <MappingFragment StoreEntitySet="NoteContents">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Content_Id" ColumnName="Content_Id" />
+                <ScalarProperty Name="Notepad_Id" ColumnName="Notepad_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notepads">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Notepad">
+              <MappingFragment StoreEntitySet="Notepads">
+                <ScalarProperty Name="Notepad_Id" ColumnName="Notepad_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+                <ScalarProperty Name="Update_Date" ColumnName="Update_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonalVaults">
+            <EntityTypeMapping TypeName="DevCom_DBModel.PersonalVault">
+              <MappingFragment StoreEntitySet="PersonalVault">
+                <ScalarProperty Name="Vault_Id" ColumnName="Vault_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="PlatformName" ColumnName="PlatformName" />
+                <ScalarProperty Name="AccountMail" ColumnName="AccountMail" />
+                <ScalarProperty Name="AccountPassword" ColumnName="AccountPassword" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="AlternativeMail" ColumnName="AlternativeMail" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reminders">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Reminder">
+              <MappingFragment StoreEntitySet="Reminders">
+                <ScalarProperty Name="Reminder_Id" ColumnName="Reminder_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Reminder_Time" ColumnName="Reminder_Time" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Tag_Name" ColumnName="Tag_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="Task_Id" ColumnName="Task_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Short_Description" ColumnName="Short_Description" />
+                <ScalarProperty Name="Creation_Time" ColumnName="Creation_Time" />
+                <ScalarProperty Name="Target_Time" ColumnName="Target_Time" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Texts">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Text">
+              <MappingFragment StoreEntitySet="Texts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text_Id" ColumnName="Text_Id" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Subtext_Title" ColumnName="Subtext_Title" />
+                <ScalarProperty Name="Subtext_Type" ColumnName="Subtext_Type" />
+                <ScalarProperty Name="Subtext" ColumnName="Subtext" />
+                <ScalarProperty Name="Text1" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UI_Designs">
+            <EntityTypeMapping TypeName="DevCom_DBModel.UI_Designs">
+              <MappingFragment StoreEntitySet="UI_Designs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UI_Id" ColumnName="UI_Id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Update_Histories">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Update_Histories">
+              <MappingFragment StoreEntitySet="Update_Histories">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Notepad_Id" ColumnName="Notepad_Id" />
+                <ScalarProperty Name="Task_Id" ColumnName="Task_Id" />
+                <ScalarProperty Name="Reminder_Id" ColumnName="Reminder_Id" />
+                <ScalarProperty Name="Board_Id" ColumnName="Board_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DevCom_DBModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AlternativeEmail" ColumnName="AlternativeEmail" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Question_2FA" ColumnName="Question_2FA" />
+                <ScalarProperty Name="Answer_2FA" ColumnName="Answer_2FA" />
+                <ScalarProperty Name="VaultPassword" ColumnName="VaultPassword" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Video">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Video_Id" ColumnName="Video_Id" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Subtext_Title" ColumnName="Subtext_Title" />
+                <ScalarProperty Name="Subtext_Type" ColumnName="Subtext_Type" />
+                <ScalarProperty Name="Subtext" ColumnName="Subtext" />
+                <ScalarProperty Name="Video_link" ColumnName="Video_link" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Visual_Boards">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Visual_Boards">
+              <MappingFragment StoreEntitySet="Visual_Boards">
+                <ScalarProperty Name="Board_Id" ColumnName="Board_Id" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workflow_Designs">
+            <EntityTypeMapping TypeName="DevCom_DBModel.Workflow_Designs">
+              <MappingFragment StoreEntitySet="Workflow_Designs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Workflow_Id" ColumnName="Workflow_Id" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

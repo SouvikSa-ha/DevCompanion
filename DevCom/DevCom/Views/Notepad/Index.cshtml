@@ -1,0 +1,101 @@
+﻿@model DevCom.Models.ViewModels.NotepadVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 overflow-hidden">
+            <button type="button" class="btn btn-primary w-100 mb-3"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                + Create
+            </button>
+
+            <form class="list-group" id="notelist">
+                @foreach (var item in Model.Notepads)
+                {
+                    <a class="list-group-item list-group-item-action notes" aria-expanded="false" aria-controls="demo1">
+                        @item.Title
+                        <input type="hidden" name="noteid" value="@item.Notepad_Id" />
+                    </a>
+                }
+            </form>
+        </div>
+        <div class="col">
+            @*<div id="demo1" class="collapse multi-collapse">
+                  @Html.Partial("Show")
+                </div>
+            *@
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enter Note Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <form id="createForm" method="post">
+                        <div class="mb-3">
+                            <!--<label asp-for="m.Notepad.Title" class="control-label"></label>
+                            <input id asp-for="m.Notepad.Title" class="form-control" />
+                            <span asp-validation-for="m.Notepad.Title" class="text-danger"></span>-->
+                            <!--@Html.EditorFor(m => m.Notepad.Title, new { htmlAttributes = new { @class = "form-control" } })-->
+                            <input type="text" class="form-control" id="notetitle" placeholder="enter title" />
+                        </div>
+                    </form>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <!--@Html.ActionLink("Create", "Create")-->
+                <!--<input type="submit" value="Save" class="btn btn-default" />-->
+                <button id="btnCreate" type="button" class="btn btn-primary">Create</button>
+                <!--<input type="submit" value="Create" class="btn btn-primary" />-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btnCreate").click(function () {
+                var title = $("#notetitle").val().toString();
+                //var form = $("#createForm").serialize();
+
+                $.ajax({
+                    type: "POST",
+                    data: obj, //form
+                    url: "/Notepad/Create",
+                    success: function () {
+                        //window.localtion.href = "/Notepad/Index";
+                    },
+                    failure: function () {
+                        alert("failed");
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                })
+
+            })
+        })
+        function create() {
+
+        }
+        @Scripts.Render("~/Scripts/NotepadIndex.js")
+    </script>
+}

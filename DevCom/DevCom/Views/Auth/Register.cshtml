@@ -1,0 +1,62 @@
+﻿@model DevCom.Models.ViewModels.RegistrationVM
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+
+<h2 class="my-5 text-center">Register</h2>
+
+@using (Html.BeginForm("Register", "Auth", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-floating col-md-5 m-auto">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-4", @for = "uname" })
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @id = "uname" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row my-4">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-4", @for = "umail" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "umail" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-4", @for = "upass" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "upass" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row my-4">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-4", @for = "upass" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @id = "upass" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row justify-content-between">
+            <div class="col-md-6 text-center">
+                @Html.ActionLink("Sign in", "Login", "Auth", null, new { @class = "btn btn-secondary px-5" })
+            </div>
+            <div class="col-md-6 text-center">
+                <input type="submit" value="Create" class="btn btn-primary px-5" />
+            </div>
+        </div>
+    </div>
+}
+
+
+<p class="text-center w-100 text-danger">@ViewBag.ErrorMsg</>
