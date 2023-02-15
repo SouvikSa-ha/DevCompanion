@@ -20,7 +20,7 @@ namespace DevCom
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/js").Include(
-                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/bootstrap.bundle.min.js",
                       "~/Scripts/Home.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -54,7 +54,7 @@ namespace DevCom.Controllers
                     db.SaveChanges();
                     Session["UidSS"] = user.Uid.ToString();
                     Session["UsernameSS"] = user.Username.ToString();
-                    return RedirectToAction("Index", "Notepad");
+                    return RedirectToAction("TempIndex", "Notepad");
                 }
             }
 
@@ -83,7 +83,7 @@ namespace DevCom.Controllers
                 {
                     Session["UidSS"] = user.Uid.ToString();
                     Session["UsernameSS"] = user.Username.ToString();
-                    return RedirectToAction("Index", "Notepad");
+                    return RedirectToAction("TempIndex", "Notepad");
                 }
                 else
                 {

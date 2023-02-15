@@ -7,6 +7,17 @@ namespace DevCom.Models.ViewModels
 {
     public class NotepadVM
     {
+        /*
+        public NotepadVM()
+        {
+            this.Notepad = new Notepad();
+            this.Text = new Text();
+            this.Image = new Image();
+            this.Audio = new Audio();
+            this.Video = new Video();
+            this.Canvas = new Canvas();
+        }*/
+
         public IEnumerable<Notepad> Notepads { get; set; }
         public IEnumerable<Text> Texts { get; set; }
         public IEnumerable<Image> Images { get; set; }
@@ -14,7 +25,16 @@ namespace DevCom.Models.ViewModels
         public IEnumerable<Video> Videos { get; set; }
         public IEnumerable<File> Files { get; set; }
         public IEnumerable<Canvas> Canvases { get; set; }
+        public IEnumerable<IEnumerable<string>> Content_ids { get; set; }
 
+        public string textsubstr = "t";
+        public string imagesubstr = "i";
+        public string audiosubstr = "a";
+        public string videosubstr = "v";
+        public string filesubstr = "f";
+        public string canvassubstr = "c";
+
+        /*
         public Notepad Notepad { get; set; }
         public Text Text { get; set; }
         public Image Image { get; set; }
@@ -22,6 +42,7 @@ namespace DevCom.Models.ViewModels
         public Video Video { get; set; }
         public File File { get; set; }
         public Canvas Canvas { get; set; }
+        */
     }
 }
 

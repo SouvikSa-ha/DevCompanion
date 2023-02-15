@@ -5,47 +5,76 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DevCom.Models.ViewModels;
+using System.Threading.Tasks;
 
 namespace DevCom.Controllers
 {
     public class NotepadController : Controller
     {
         DevCom_DBEntities db = new DevCom_DBEntities();
+        
         // GET: Notepad
+        public ActionResult TempIndex()
+        {
+            Session["NoteIndex"] = "-1";
+            return RedirectToAction("Index");
+        }
         public ActionResult Index()
         {
             ViewBag.Path = "Home -> Notepad";
+            var uid = Convert.ToInt32(Session["UidSS"]);
             NotepadVM myModel = new NotepadVM();
-            myModel.Notepads = db.Notepads.ToList();
+            myModel.Notepads = db.Notepads.Where(n=>n.Uid.Equals(uid)).ToList();
+
+
+
             //myModel.NoteContents = db.NoteContents.ToList();
             //myModel.Tags = db.Tags.ToList();
-            myModel.Texts = db.Texts.ToList();
-            myModel.Notepad = new Notepad();
-            //myModel.NoteContent = new NoteContent();
-            myModel.Text = new Text();
-            //myModel.Tag = new Tag();
+
+            List<IEnumerable<string>> temp = new List<IEnumerable<string>>();
+            foreach (var item in myModel.Notepads)
+            {
+                IEnumerable<string> it = from nc in db.NoteContents where nc.Notepad_Id == item.Notepad_Id select nc.Content_Id;
+                //string a =  it.ElementAt(0);
+                temp.Add(it);
+            }
+            myModel.Content_ids = temp;
+            /*
+            myModel.Texts = from nc in db.Texts where content_ids.Contains(nc.Text_Id) select nc;
+            myModel.Images = from nc in db.Images where content_ids.Contains(nc.Image_Id) select nc;
+            myModel.Audios = from nc in db.Audios where content_ids.Contains(nc.Audio_Id) select nc;
+            myModel.Videos = from nc in db.Videos where content_ids.Contains(nc.Video_Id) select nc;
+            myModel.Files = from nc in db.Files where content_ids.Contains(nc.File_Id) select nc;
+            myModel.Canvases = from nc in db.Canvases where content_ids.Contains(nc.Canvas_Id) select nc;*/
+
             return View(myModel);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(String title)
+        //[ValidateAntiForgeryToken]
+        public EmptyResult Create(Notepad _notepad)
         {
             Notepad notepad = new Notepad();
-            notepad.Title = title;
+            notepad.Title = _notepad.Title;
             notepad.Creation_Date = DateTime.Now;
             notepad.Update_Date = DateTime.Now;
-            notepad.Uid = (int)Session["UidSS"];
+            notepad.Uid = Convert.ToInt32(Session["UidSS"]);
             //db.Configuration.ValidateOnSaveEnabled = false;
             db.Notepads.Add(notepad);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return null;
         }
 
-        public EmptyResult Details(/*string noteid*/)
+        public EmptyResult Details(Notepad noteid)
         {
-            //var item = db.Notepads.Where(m => m.Notepad_Id == noteid).FirstOrDefault();
+            /*Notepad notepad = db.Notepads.Where(n => n.Notepad_Id.Equals(122)).First();
+            int idint = Convert.ToInt32(noteid.Notepad_Id.ToString());
+            var id = myModel.Notepads.ElementAt(idint).Notepad_Id;
+            myModel.content_ids = db.NoteContents.Where(
+                    x => x.Notepad_Id == id
+                ).Select(p => p.Content_Id).ToList();*/
+            Session["NoteIndex"] = noteid.Notepad_Id.ToString();
             return null;
         }
 
@@ -71,24 +100,6 @@ namespace DevCom.Controllers
                     "<script>alert('Here!')</script>";
             return RedirectToAction("Index");
         } */
-
-
-        public ActionResult AutoCreate()
-        {
-            
-            ViewBag.UserList = db.Users.ToList();
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AutoCreate(Notepad notepad)
-        {
-            notepad.Creation_Date = DateTime.Now;
-            notepad.Update_Date = DateTime.Now;
-            db.Notepads.Add(notepad);
-            db.SaveChanges();
-            return View();
-        }
 
     }
 }

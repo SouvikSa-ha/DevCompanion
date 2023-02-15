@@ -1,68 +1,107 @@
-﻿@model DevCom.Models.ViewModels.NotepadVM
+﻿@using DevCom.Models
+@model DevCom.Models.ViewModels.NotepadVM
+
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int noteIndex = Convert.ToInt32(Session["NoteIndex"].ToString());
+    DevCom_DBEntities db = new DevCom_DBEntities();
 }
-
+<style>
+    .scrollhide::-webkit-scrollbar {
+        display: none;
+    }
+</style>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 overflow-hidden">
+        <div class="col-md-3">
             <button type="button" class="btn btn-primary w-100 mb-3"
                     data-bs-toggle="modal" data-bs-target="#exampleModal">
                 + Create
             </button>
 
-            <form class="list-group" id="notelist">
+            <div class="list-group overflow-auto scrollhide">
                 @foreach (var item in Model.Notepads)
                 {
-                    <a class="list-group-item list-group-item-action notes" aria-expanded="false" aria-controls="demo1">
+                    <button class="btn list-group-item list-group-item-action notes" aria-expanded="false" aria-controls="demo1">
                         @item.Title
-                        <input type="hidden" name="noteid" value="@item.Notepad_Id" />
-                    </a>
+                    </button>
                 }
-            </form>
+            </div>
         </div>
-        <div class="col">
-            @*<div id="demo1" class="collapse multi-collapse">
-                  @Html.Partial("Show")
-                </div>
-            *@
+        @if(noteIndex < 0)
+        {
+            <div class="col">
+                @*<div id="demo1" class="collapse multi-collapse">
+                      @Html.Partial("Show")
+                    </div>
+                *@
+            </div>
+        }
+        else
+        {
+            <div class="col">
+                <h2>@Model.Notepads.ElementAt(noteIndex).Title</h2>
+                @foreach (var item in Model.Content_ids.ElementAt(noteIndex))
+                {
+                    if (item.Contains(Model.textsubstr))
+                    {
+                        var _text = db.Texts.Where(x => x.Text_Id.Equals(item)).FirstOrDefault();
+                        <p>@_text.Text1</p>
+                    }
+                    else if (item.Contains(Model.imagesubstr))
+                    {
 
+                    }
+                    else if (item.Contains(Model.audiosubstr))
+                    {
 
-        </div>
+                    }
+                    else if (item.Contains(Model.videosubstr))
+                    {
+
+                    }
+                    else if (item.Contains(Model.filesubstr))
+                    {
+
+                    }
+                    else if (item.Contains(Model.canvassubstr))
+                    {
+
+                    }
+                }
+
+            </div>
+        }
+
     </div>
 </div>
 
 <div class="modal fade" id="exampleModal" data-bs-backdrop="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enter Note Title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enter Note Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
                     <form id="createForm" method="post">
                         <div class="mb-3">
-                            <!--<label asp-for="m.Notepad.Title" class="control-label"></label>
-                            <input id asp-for="m.Notepad.Title" class="form-control" />
-                            <span asp-validation-for="m.Notepad.Title" class="text-danger"></span>-->
-                            <!--@Html.EditorFor(m => m.Notepad.Title, new { htmlAttributes = new { @class = "form-control" } })-->
-                            <input type="text" class="form-control" id="notetitle" placeholder="enter title" />
+                            <input type="text" class="form-control" id="notetitle" placeholder="Enter title" />
                         </div>
                     </form>
-                }
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!--@Html.ActionLink("Create", "Create")-->
-                <!--<input type="submit" value="Save" class="btn btn-default" />-->
-                <button id="btnCreate" type="button" class="btn btn-primary">Create</button>
-                <!--<input type="submit" value="Create" class="btn btn-primary" />-->
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnCreate" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -71,9 +110,29 @@
 @section Scripts{
     <script type="text/javascript">
 
+        var items = document.querySelectorAll(".notes"), tab = [];
+
+        for (var i = 0; i < items.length; i++) {
+            tab.push(items[i].innerHTML);
+        }
+
+        var buttons = document.querySelectorAll(".notes");
+
+        var noteIndex = @noteIndex;
+        window.noteIndex = @noteIndex;
+
+        for (var i = 0; i < buttons.length; i++) {
+            (i != noteIndex) ? buttons[i].classList.remove('active') : buttons[i].classList.add('active');
+        }
+        
+
         $(document).ready(function () {
             $("#btnCreate").click(function () {
-                var title = $("#notetitle").val().toString();
+                var title = $("#notetitle").val();
+
+                var obj = {
+                    Title: title
+                }
                 //var form = $("#createForm").serialize();
 
                 $.ajax({
@@ -81,7 +140,8 @@
                     data: obj, //form
                     url: "/Notepad/Create",
                     success: function () {
-                        //window.localtion.href = "/Notepad/Index";
+                        window.location.href = "/Notepad/Index"
+                        //location.reload();
                     },
                     failure: function () {
                         alert("failed");
@@ -92,10 +152,32 @@
                 })
 
             })
-        })
-        function create() {
+            $(".notes").click(function () {
+                var index = tab.indexOf(this.innerHTML);
+                
+                console.log(index);
+                var obj = {
+                    Notepad_Id: index
+                }
 
-        }
-        @Scripts.Render("~/Scripts/NotepadIndex.js")
+                $.ajax({
+                    type: "POST",
+                    data: obj, //form
+                    url: "/Notepad/Details",
+                    success: function () {
+                        window.location.href="/Notepad/Index";
+                    },
+                    failure: function () {
+                        alert("failed");
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                })
+            })
+        })
+
+        
     </script>
+   
 }
