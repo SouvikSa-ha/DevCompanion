@@ -123,6 +123,7 @@
     <Compile Include="Controllers\NotepadController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VisualBoardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -171,9 +172,6 @@
     <Compile Include="Models\PersonalVault.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModels\LoginVM.cs" />
-    <Compile Include="Models\ViewModels\NotepadVM.cs" />
-    <Compile Include="Models\ViewModels\RegistrationVM.cs" />
     <Compile Include="Models\Reminder.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
     </Compile>
@@ -198,6 +196,10 @@
     <Compile Include="Models\Video.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\ContentAddModel.cs" />
+    <Compile Include="Models\ViewModels\LoginVM.cs" />
+    <Compile Include="Models\ViewModels\NotepadVM.cs" />
+    <Compile Include="Models\ViewModels\RegistrationVM.cs" />
     <Compile Include="Models\Visual_Boards.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
     </Compile>
@@ -288,6 +290,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\NotepadEdit.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -301,9 +304,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
@@ -315,6 +315,10 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Notepad\Index.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
+    <Content Include="Views\VisualBoard\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\LoginReminder.cshtml" />
+    <Content Include="Views\Home\WelcomeUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

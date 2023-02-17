@@ -5,13 +5,77 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int noteIndex = Convert.ToInt32(Session["NoteIndex"].ToString());
+    int noteIndex = -1;
+    if (Session["NoteIndex"] != null) {
+        noteIndex = Convert.ToInt32(Session["NoteIndex"].ToString());
+    }
+    else
+    {
+        Session["NoteIndex"] = "-1";
+    }
+
     DevCom_DBEntities db = new DevCom_DBEntities();
+    Notepad _notepad = new Notepad();
+    if (noteIndex >= 0)
+    {
+        _notepad = Model.Notepads.ElementAt(noteIndex);
+    }
 }
 <style>
     .scrollhide::-webkit-scrollbar {
         display: none;
     }
+    #options {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 15px;
+    }
+
+        #options button {
+            height: 28px;
+            width: 28px;
+            align-items: center;
+            display: grid;
+            border-radius: 3px;
+            border: none;
+            outline: none;
+            background-color: aliceblue;
+            color: black;
+        }
+
+        #options label,
+        #options select {
+            font-family: "Poppins", sans-serif;
+            width:auto;
+        }
+
+    .input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    input[type="color"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: transparent;
+        width: 40px;
+        height: 28px;
+        border: none;
+        cursor: pointer;
+    }
+
+        input[type="color"]::-webkit-color-swatch {
+            border-radius: 15px;
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px #020929;
+        }
+
+
+    .custom-active {
+        background-color: #e0e9ff;
+    }
+
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -30,7 +94,7 @@
                 }
             </div>
         </div>
-        @if(noteIndex < 0)
+        @if (noteIndex < 0)
         {
             <div class="col">
                 @*<div id="demo1" class="collapse multi-collapse">
@@ -41,42 +105,182 @@
         }
         else
         {
-            <div class="col">
-                <h2>@Model.Notepads.ElementAt(noteIndex).Title</h2>
-                @foreach (var item in Model.Content_ids.ElementAt(noteIndex))
-                {
-                    if (item.Contains(Model.textsubstr))
-                    {
-                        var _text = db.Texts.Where(x => x.Text_Id.Equals(item)).FirstOrDefault();
-                        <p>@_text.Text1</p>
-                    }
-                    else if (item.Contains(Model.imagesubstr))
-                    {
+            <div class="col border-start border-4 border-dark" style="min-height: 600px; max-height: 600px;">
+                <div class="row mb-4">
+                    <div class="container-fluid">
+                        <div class="row justify-content-between mb-3">
+                            <div class="col">
+                                <button class="btn">
+                                    <i class="fa-sharp fa-solid fa-maximize"></i>
+                                </button>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn">
+                                    <i class="fa fa-history" aria-hidden="true"></i>
+                                </button>
 
-                    }
-                    else if (item.Contains(Model.audiosubstr))
-                    {
+                            </div>
+                        </div>
+                        <div class="row overflow-auto scrollhide" style="min-height: 420px; max-height:420px;">
 
-                    }
-                    else if (item.Contains(Model.videosubstr))
-                    {
+                            <h1 class="display-5 fw-bold">@_notepad.Title</h1>
+                            <h4>Creation Date: @_notepad.Creation_Date</h4>
+                            <h4>Update Date: @_notepad.Update_Date</h4>
 
-                    }
-                    else if (item.Contains(Model.filesubstr))
-                    {
+                            <p class="h6">
+                                Tag:
+                                @if (Model.Tags != null && Model.Tags.Any())
+                                {
+                                    <span class="h4">@Model.Tags.ElementAt(noteIndex)</span>
+                                }
+                            </p>
 
-                    }
-                    else if (item.Contains(Model.canvassubstr))
-                    {
 
-                    }
-                }
+                            <div class="container">
+                                @foreach (var item in Model.Content_ids.ElementAt(noteIndex))
+                                {
+                                    if (item.Contains(Model.textsubstr))
+                                    {
+                                        var _text = db.Texts.Where(x => x.Text_Id.Equals(item)).FirstOrDefault();
+                                        <div class="row justify-content-between d-flex">
+                                            <div class="col-md-11">
+                                                <div class="text-input border rounded p-4 list-unstyled" id="@_text.Id" contenteditable="false">
+                                                    @Html.Raw(WebUtility.HtmlDecode(_text.Text1))
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button class="btn note-edit-btn" onclick="edit_and_save(this)">
+                                                    <i class="fas fa-solid fa-edit changable-icon"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (item.Contains(Model.imagesubstr))
+                                    {
 
+                                    }
+                                    else if (item.Contains(Model.audiosubstr))
+                                    {
+
+                                    }
+                                    else if (item.Contains(Model.videosubstr))
+                                    {
+
+                                    }
+                                    else if (item.Contains(Model.filesubstr))
+                                    {
+
+                                    }
+                                    else if (item.Contains(Model.canvassubstr))
+                                    {
+
+                                    }
+
+                                }
+                            </div>
+                            <button class="btn border-primary" onclick="add_text()">
+                                Add Text
+                            </button>
+                            <button class="btn border-primary" id="add-image">
+                                Add Image
+                            </button>
+                            <button class="btn border-primary" id="add-video">
+                                Add Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="border-top border-3 py-4 border-dark" id="options">
+                        <!-- Text Format -->
+                        <button id="bold" class="option-button format">
+                            <i class="fa-solid fa-bold"></i>
+                        </button>
+                        <button id="italic" class="option-button format">
+                            <i class="fa-solid fa-italic"></i>
+                        </button>
+                        <button id="underline" class="option-button format">
+                            <i class="fa-solid fa-underline"></i>
+                        </button>
+                        <button id="strikethrough" class="option-button format">
+                            <i class="fa-solid fa-strikethrough"></i>
+                        </button>
+                        <button id="superscript" class="option-button script">
+                            <i class="fa-solid fa-superscript"></i>
+                        </button>
+                        <button id="subscript" class="option-button script">
+                            <i class="fa-solid fa-subscript"></i>
+                        </button>
+                        <!-- List -->
+                        <button id="insertOrderedList" class="option-button">
+                            <div class="fa-solid fa-list-ol"></div>
+                        </button>
+                        <button id="insertUnorderedList" class="option-button">
+                            <i class="fa-solid fa-list"></i>
+                        </button>
+                        <!-- Undo/Redo -->
+                        <button id="undo" class="option-button">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                        <button id="redo" class="option-button">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                        <!-- Link -->
+                        <button id="createLink" class="adv-option-button">
+                            <i class="fa fa-link"></i>
+                        </button>
+                        <button id="unlink" class="option-button">
+                            <i class="fa fa-unlink"></i>
+                        </button>
+                        <!-- Alignment -->
+                        <button id="justifyLeft" class="option-button align">
+                            <i class="fa-solid fa-align-left"></i>
+                        </button>
+                        <button id="justifyCenter" class="option-button align">
+                            <i class="fa-solid fa-align-center"></i>
+                        </button>
+                        <button id="justifyRight" class="option-button align">
+                            <i class="fa-solid fa-align-right"></i>
+                        </button>
+                        <button id="justifyFull" class="option-button align">
+                            <i class="fa-solid fa-align-justify"></i>
+                        </button>
+                        <button id="indent" class="option-button spacing">
+                            <i class="fa-solid fa-indent"></i>
+                        </button>
+                        <button id="outdent" class="option-button spacing">
+                            <i class="fa-solid fa-outdent"></i>
+                        </button>
+                        <!-- Headings -->
+                        <select id="formatBlock" class="adv-option-button form-select form-select-sm">
+                            <option value="H1">H1</option>
+                            <option value="H2">H2</option>
+                            <option value="H3">H3</option>
+                            <option value="H4">H4</option>
+                            <option value="H5">H5</option>
+                            <option value="H6">H6</option>
+                        </select>
+                        <!-- Font -->
+                        <select id="fontName" class="adv-option-button form-select form-select-sm"></select>
+                        <select id="fontSize" class="adv-option-button form-select form-select-sm"></select>
+                        <!-- Color -->
+                        <div class="input-wrapper">
+                            <input type="color" id="foreColor" class="adv-option-button" />
+                            <label for="foreColor">Font Color</label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="color" id="backColor" class="adv-option-button" />
+                            <label for="backColor">Highlight Color</label>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         }
 
     </div>
 </div>
+
 
 <div class="modal fade" id="exampleModal" data-bs-backdrop="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -117,16 +321,19 @@
         }
 
         var buttons = document.querySelectorAll(".notes");
+        let icon = document.querySelectorAll(".changable-icon");
 
+        
         var noteIndex = @noteIndex;
         window.noteIndex = @noteIndex;
 
         for (var i = 0; i < buttons.length; i++) {
             (i != noteIndex) ? buttons[i].classList.remove('active') : buttons[i].classList.add('active');
         }
-        
+
 
         $(document).ready(function () {
+            $("#options").hide();
             $("#btnCreate").click(function () {
                 var title = $("#notetitle").val();
 
@@ -152,9 +359,9 @@
                 })
 
             })
-            $(".notes").click(function () {
+            $(".notes").click(function (event) {
                 var index = tab.indexOf(this.innerHTML);
-                
+
                 console.log(index);
                 var obj = {
                     Notepad_Id: index
@@ -174,10 +381,96 @@
                         alert("error");
                     }
                 })
+
             })
         })
 
-        
+        function edit_and_save(e){
+            console.log("Clicked")
+            //document.querySelectorAll("")
+            console.log(e)
+            let area = e.parentElement.previousElementSibling.children[0];
+
+            console.log(area);
+            console.log(area.id);
+            if (area.isContentEditable) {
+                area.setAttribute("contenteditable", false);
+                e.children[0].classList.remove("fa-check");
+                e.children[0].classList.add("fa-edit");
+                $("#options").hide();
+                saveChanges(area);
+            }
+            else {
+                area.setAttribute("contenteditable", true);
+                e.children[0].classList.remove("fa-edit");
+                e.children[0].classList.add("fa-check");
+                $("#options").show();
+            }
+        }
+
+        function saveChanges(area) {
+            var note = area.innerHTML;
+
+            note = note.replace(/(<div><br>)*<\/div>/g, '\n');
+            note = note.replace(/<div>/g, '');
+            
+            note = note.replace(/&nbsp;/g, ' ');
+            note = note.replace(/&amp;/g, '&');
+            note = note.replace(/&lt;/g, '<');
+            note = note.replace(/&gt;/g, '>');
+
+           
+
+            var id = area.id;
+
+            var obj = {
+                Id: id,
+                Text1: note
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "text/plain; charset=utf-8",
+                data: obj,
+                url: "/Notepad/Update",
+                success: function () {
+                    window.location.href = "/Notepad/Index";
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    window.location.href = "/Notepad/Index";
+                }
+            })
+        }
+
+        function add_text() {
+            var noteId = @_notepad.Notepad_Id;
+            window.noteId = @_notepad.Notepad_Id;
+
+            var obj = {
+                Notepad_Id: noteId
+            }
+
+            $.ajax({
+                type: "POST",
+                data: obj,
+                url: "/Notepad/AddText",
+                success: function () {
+                    window.location.href = "/Notepad/Index";
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+
+        }
+
     </script>
-   
+
 }
+@Scripts.Render("~/Scripts/NotepadEdit.js")

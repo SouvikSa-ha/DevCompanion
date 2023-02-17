@@ -11,8 +11,7 @@ namespace DevCom.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,36 +27,18 @@ namespace DevCom.Models
         }
     
         public int Uid { get; set; }
-
-        [DataType(DataType.Text)]
-        [Display(Name = "Username")]
-        [Required(ErrorMessage = "This field is required")]
         public string Username { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        [Display(Name = "Email")]
-        [DataType(DataType.EmailAddress)]
-        [Required(ErrorMessage = "This field is required")]
         public string Email { get; set; }
-
-        [Display(Name = "Password")]
-        [DataType(DataType.Password)]
-        [Required(ErrorMessage = "This field is required")]
         public string Password { get; set; }
-
-        [Display(Name = "Alternative Email")]
-        [DataType(DataType.EmailAddress)]
         public string AlternativeEmail { get; set; }
-
-        [Display(Name = "Profile Image")]
-        [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
         public string Question_2FA { get; set; }
         public string Answer_2FA { get; set; }
         public string VaultPassword { get; set; }
         public Nullable<bool> EmailConfirmed { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Collaboration> Collaborations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

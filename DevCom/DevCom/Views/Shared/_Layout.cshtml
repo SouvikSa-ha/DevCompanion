@@ -7,29 +7,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!--<link href="@Url.Content("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css")" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <!--<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>-->
     <div class="container-fluid" style="background-color: #e4e9f7">
         <div class="custom_sidebar">
             <div class="logo_details">
@@ -38,61 +18,101 @@
                 <i class="bx bx-menu" id="custom_btn"></i>
             </div>
             <ul class="custom-nav-list list-unstyled">
-                <li class="profile mb-5">
-                    <a href="#">
-                        <img src="~/Assets/profile.jpeg" alt="profile image">
-                        <span class="link_name">User 001</span>
-                    </a>
-                    @if (Session["UsernameSS"] != null)
-                    {
+                @if (Session["GuestSS"] == null)
+                {
+                    <li class="profile mb-5">
+                        <a href="#">
+                            <img src="~/Assets/profile.jpeg" alt="profile image">
+                            <span class="link_name">@Session["UsernameSS"]</span>
+                        </a>
                         <span class="tooltip">@Session["UsernameSS"]</span>
-                    }
-                    else
-                    { //login then use that 
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Notepad")">
+                            <i class='bx bx-notepad bx-sm'></i>
+                            <span class="link_name">Notepad</span>
+                        </a>
+                        <span class="tooltip">Notepad</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "Task")">
+                            <i class='bx bx-task bx-sm'></i>
+                            <span class="link_name">Tasks</span>
+                        </a>
+                        <span class="tooltip">Tasks</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-calendar bx-sm'></i>
+                            <span class="link_name">Reminder</span>
+                        </a>
+                        <span class="tooltip">Reminder</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-table bx-sm'></i>
+                            <span class="link_name">Visual Board</span>
+                        </a>
+                        <span class="tooltip">Visual Board</span>
+                    </li>
+                    <li class="vault">
+                        <a href="#">
+                            <i class='bx bx-hdd bx-sm' id="_vault"></i>
+                            <span class="link_name">Vault</span>
+                        </a>
+                        <span class="tooltip">Settings</span>
+                    </li>
+                } else
+                {
+                    <li class="profile mb-5">
+                        <a href="#">
+                            <img src="~/Assets/profile.jpeg" alt="profile image">
+                            <span class="link_name">user 001</span>
+                        </a>
                         <span class="tooltip">user 001</span>
-                    }
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Notepad")">
-                        <i class='bx bx-notepad bx-sm'></i>
-                        <span class="link_name">Notepad</span>
-                    </a>
-                    <span class="tooltip">Notepad</span>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Task")">
-                        <i class='bx bx-task bx-sm'></i>
-                        <span class="link_name">Tasks</span>
-                    </a>
-                    <span class="tooltip">Tasks</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-calendar bx-sm'></i>
-                        <span class="link_name">Reminder</span>
-                    </a>
-                    <span class="tooltip">Reminder</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class='bx bx-table bx-sm'></i>
-                        <span class="link_name">Visual Board</span>
-                    </a>
-                    <span class="tooltip">Visual Board</span>
-                </li>
-                <li class="vault">
-                    <a href="#">
-                        <i class='bx bx-hdd bx-sm' id="_vault"></i>
-                        <span class="link_name">Vault</span>
-                    </a>
-                    <span class="tooltip">Settings</span>
-                </li>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LoginReminder", "Home")">
+                            <i class='bx bx-notepad bx-sm'></i>
+                            <span class="link_name">Notepad</span>
+                        </a>
+                        <span class="tooltip">Notepad</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LoginReminder", "Home")">
+                            <i class='bx bx-task bx-sm'></i>
+                            <span class="link_name">Tasks</span>
+                        </a>
+                        <span class="tooltip">Tasks</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("LoginReminder", "Home")">
+                            <i class='bx bx-calendar bx-sm'></i>
+                            <span class="link_name">Reminder</span>
+                        </a>
+                        <span class="tooltip">Reminder</span>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Index", "VisualBoard")">
+                            <i class='bx bx-table bx-sm'></i>
+                            <span class="link_name">Visual Board</span>
+                        </a>
+                        <span class="tooltip">Visual Board</span>
+                    </li>
+                    <li class="vault">
+                        <a href="@Url.Action("LoginReminder", "Home")">
+                            <i class='bx bx-hdd bx-sm' id="_vault"></i>
+                            <span class="link_name">Vault</span>
+                        </a>
+                        <span class="tooltip">Settings</span>
+                    </li>
+                }
             </ul>
         </div>
         <section class="home-section">
             <div class="row justify-content-between">
                 <div class="col text">
-                    Home -> Notepad
+                    @ViewBag.Path
                 </div>
                 <div class="col pt-4 text-end">
                     <i class="bx bx-search bx-sm align-middle btn btn-sm"></i>
@@ -100,7 +120,7 @@
                     <i class='bx bx-history bx-sm align-middle mx-3 btn btn-sm'></i>
                     <i class="bx bx-menu bx-sm align-middle mx-3 btn btn-sm"></i>
                     <!--if not signed in-->
-                    @if (Session["UsernameSS"] == null)
+                    @if (Session["GuestSS"] != null)
                     {
                         @Html.ActionLink("Sign In", "Login", "Auth", null, new { @class = "btn btn-primary" });
                     }

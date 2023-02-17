@@ -14,31 +14,49 @@ namespace DevCom.Controllers
         DevCom_DBEntities db = new DevCom_DBEntities();
         
         // GET: Notepad
-        public ActionResult TempIndex()
-        {
-            Session["NoteIndex"] = "-1";
-            return RedirectToAction("Index");
-        }
+        
+
         public ActionResult Index()
         {
-            ViewBag.Path = "Home -> Notepad";
-            var uid = Convert.ToInt32(Session["UidSS"]);
             NotepadVM myModel = new NotepadVM();
-            myModel.Notepads = db.Notepads.Where(n=>n.Uid.Equals(uid)).ToList();
-
-
-
-            //myModel.NoteContents = db.NoteContents.ToList();
-            //myModel.Tags = db.Tags.ToList();
-
-            List<IEnumerable<string>> temp = new List<IEnumerable<string>>();
-            foreach (var item in myModel.Notepads)
+            if (Session["UidSS"] != null)
             {
-                IEnumerable<string> it = from nc in db.NoteContents where nc.Notepad_Id == item.Notepad_Id select nc.Content_Id;
-                //string a =  it.ElementAt(0);
-                temp.Add(it);
+                ViewBag.Path = "Home -> Notepad";
+                var uid = Convert.ToInt32(Session["UidSS"]);
+                
+                myModel.Notepads = db.Notepads.Where(n=>n.Uid.Equals(uid)).ToList();
+
+            
+
+                List<IEnumerable<string>> temp = new List<IEnumerable<string>>();
+                foreach (var item in myModel.Notepads)
+                {
+                    IEnumerable<string> it = from nc in db.NoteContents where nc.Notepad_Id == item.Notepad_Id select nc.Content_Id;
+                    //string a =  it.ElementAt(0);
+                    temp.Add(it);
+                }
+                myModel.Content_ids = temp;
+
+                List<string> _temp= new List<string>();
+
+                foreach (var item in myModel.Notepads)
+                {
+                    IEnumerable<string> it = from nc in db.Tags where nc.Tag_Id == item.Tag_Id select nc.Tag_Name;
+                    if (it != null && it.Any())
+                        _temp.Add(it.ElementAt(0));
+                }
+                myModel.Tags = _temp;
             }
-            myModel.Content_ids = temp;
+            else
+            {
+                var userid = db.Texts.OrderByDescending(x => x.Id).First().Id + 1;
+                myModel.Notepads = new List<Notepad>();
+                Session["UidSS"] = userid;
+                Session["GuestSS"] = 1;
+                ViewBag.Path = "Home -> Visual Board";
+            }
+
+
             /*
             myModel.Texts = from nc in db.Texts where content_ids.Contains(nc.Text_Id) select nc;
             myModel.Images = from nc in db.Images where content_ids.Contains(nc.Image_Id) select nc;
@@ -68,38 +86,48 @@ namespace DevCom.Controllers
 
         public EmptyResult Details(Notepad noteid)
         {
-            /*Notepad notepad = db.Notepads.Where(n => n.Notepad_Id.Equals(122)).First();
-            int idint = Convert.ToInt32(noteid.Notepad_Id.ToString());
-            var id = myModel.Notepads.ElementAt(idint).Notepad_Id;
-            myModel.content_ids = db.NoteContents.Where(
-                    x => x.Notepad_Id == id
-                ).Select(p => p.Content_Id).ToList();*/
             Session["NoteIndex"] = noteid.Notepad_Id.ToString();
             return null;
         }
 
-        /*[HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Create(NotepadViewModel notepadViewModel)
+        [HttpPost]
+        [ValidateInput(false)]
+        public EmptyResult Update(Text _text)
         {
 
-            if (ModelState.IsValid)
+            var text = db.Texts.FirstOrDefault(x => x.Id == _text.Id);
+            if(text != null)
             {
-                Notepad notepad = new Notepad();
-                notepad.Title = notepadViewModel.Notepad.Title;
-                notepad.Creation_Date = DateTime.Now;
-                notepad.Update_Date = DateTime.Now;
-                notepad.Uid = 1;
-                db.Notepads.Add(notepad);
-                int a = db.SaveChanges();
-                TempData["CreateMessage"] = (a > 0) ? 
-                    "<script>alert('Created!')</script>":
-                    "<script>alert('Error!')</script>";
+                if (_text.Text1 != null)
+                    text.Text1 = _text.Text1.Trim();
+                else
+                    text.Text1 = "add text";
+                db.SaveChanges();
             }
-            TempData["CreateMessage"] =
-                    "<script>alert('Here!')</script>";
-            return RedirectToAction("Index");
-        } */
+
+            return null;
+        }
+
+        [HttpPost]
+        public EmptyResult AddText(Notepad model)
+        {
+            var _text = db.Texts.OrderByDescending(x => x.Id).First().Id + 1;
+            Text text = new Text();
+            text.Text_Id = "t_" + _text.ToString();
+            text.Text1 = "add text";
+            
+            
+            NoteContent nc = new NoteContent();
+            nc.Content_Id = "t_" + _text.ToString(); ;
+            nc.Notepad_Id = model.Notepad_Id;
+
+            db.NoteContents.Add(nc);
+            db.SaveChanges();
+
+            db.Texts.Add(text);
+            db.SaveChanges();
+            return null;
+        }
 
     }
 }
