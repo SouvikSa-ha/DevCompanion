@@ -27,6 +27,7 @@ namespace DevCom.Models.ViewModels
         public IEnumerable<Canvas> Canvases { get; set; }
         public IEnumerable<IEnumerable<string>> Content_ids { get; set; }
         public IEnumerable<string> Tags { get; set; }
+        public List<string> AllTags { get; set; }
 
         public string textsubstr = "t";
         public string imagesubstr = "i";

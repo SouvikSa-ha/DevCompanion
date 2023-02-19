@@ -46,6 +46,16 @@ namespace DevCom.Controllers
                         _temp.Add("");
                 }
                 myModel.Tags = _temp;
+                var _temp2 = db.Tags.Where(x => x.Uid.Equals(uid)).ToList();
+                myModel.AllTags = new List<string>();
+                if(_temp2.Count > 0)
+                {
+                    foreach (var item in _temp2)
+                    {
+                        myModel.AllTags.Add(item.Tag_Name);
+                    }
+                    myModel.AllTags.Sort();
+                }
             }
             else
             {
@@ -260,9 +270,10 @@ namespace DevCom.Controllers
             else
             {
                 var tag = db.Tags.Where(x => x.Tag_Name.Equals(data.TagName)).First();
-                if (tag != null) //not added
+                if (tag != null) //if not added
                 {
                     tag.Tag_Name = data.TagName;
+                    tag.Uid = Convert.ToInt32(Session["UidSS"]);
                     db.SaveChanges();
                 }
 
@@ -320,6 +331,7 @@ namespace DevCom.Controllers
                 if (tag != null) //not added
                 {
                     tag.Tag_Name = data.TagName;
+                    tag.Uid = Convert.ToInt32(Session["UidSS"]);
                     db.SaveChanges();
                 }
 

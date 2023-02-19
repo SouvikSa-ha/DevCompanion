@@ -19,7 +19,6 @@
     Notepad _notepad = new Notepad();
 
     var text_id_list = new List<string>();
-    var tag_name_list = new List<string>();
     if (noteIndex >= 0)
     {
 
@@ -41,15 +40,6 @@
             }
         }
         text_id_list.Sort();
-
-        foreach (var item in Model.Tags)
-        {
-            if (!tag_name_list.Contains(item) && !item.Equals(""))
-            {
-                tag_name_list.Add(item);
-            }
-        }
-        tag_name_list.Sort();
     }
 }
 <style>
@@ -479,7 +469,7 @@
                             <option>New</option>
                             <option>Remove</option>
 
-                            @foreach (var item in tag_name_list)
+                            @foreach (var item in Model.AllTags)
                             {
                                 <option>@item</option>
                             }
@@ -519,7 +509,7 @@
                             <option>Remove</option>
                             <option>Parent</option>
 
-                            @foreach (var item in tag_name_list)
+                            @foreach (var item in Model.AllTags)
                             {
                                 <option>@item</option>
                             }

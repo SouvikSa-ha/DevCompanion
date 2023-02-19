@@ -50,6 +50,7 @@ namespace DevCom.Controllers
                     user.Password = _user.Password;
                     user.Email = _user.Email;
                     user.EmailConfirmed = false;
+                    user.CreationDate = DateTime.Now;
                     db.Users.Add(user);
                     db.SaveChanges();
                     Session["UidSS"] = user.Uid.ToString();

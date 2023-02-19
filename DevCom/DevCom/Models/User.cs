@@ -21,6 +21,7 @@ namespace DevCom.Models
             this.Notepads = new HashSet<Notepad>();
             this.PersonalVaults = new HashSet<PersonalVault>();
             this.Reminders = new HashSet<Reminder>();
+            this.Tags = new HashSet<Tag>();
             this.Tasks = new HashSet<Task>();
             this.Update_Histories = new HashSet<Update_Histories>();
             this.Visual_Boards = new HashSet<Visual_Boards>();
@@ -38,6 +39,8 @@ namespace DevCom.Models
         public string Answer_2FA { get; set; }
         public string VaultPassword { get; set; }
         public Nullable<bool> EmailConfirmed { get; set; }
+        public string Salt { get; set; }
+        public System.DateTime CreationDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Collaboration> Collaborations { get; set; }
@@ -47,6 +50,8 @@ namespace DevCom.Models
         public virtual ICollection<PersonalVault> PersonalVaults { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reminder> Reminders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tag> Tags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Task> Tasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

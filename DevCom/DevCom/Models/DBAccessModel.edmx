@@ -130,6 +130,7 @@
           </Key>
           <Property Name="Tag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tag_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
@@ -192,6 +193,8 @@
           <Property Name="Answer_2FA" Type="varchar" MaxLength="50" />
           <Property Name="VaultPassword" Type="nvarchar(max)" />
           <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="Salt" Type="nvarchar(max)" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Videos">
           <Key>
@@ -361,6 +364,18 @@
               <PropertyRef Name="Uid" />
             </Principal>
             <Dependent Role="Reminders">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tags__Uid__00200768">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Tags" Type="Self.Tags" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Tags">
               <PropertyRef Name="Uid" />
             </Dependent>
           </ReferentialConstraint>
@@ -554,6 +569,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Reminders" EntitySet="Reminders" />
           </AssociationSet>
+          <AssociationSet Name="FK__Tags__Uid__00200768" Association="Self.FK__Tags__Uid__00200768">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tags" EntitySet="Tags" />
+          </AssociationSet>
           <AssociationSet Name="FK__Tasks__Uid__239E4DCF" Association="Self.FK__Tasks__Uid__239E4DCF">
             <End Role="Users" EntitySet="Users" />
             <End Role="Tasks" EntitySet="Tasks" />
@@ -740,11 +759,13 @@
           </Key>
           <Property Name="Tag_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tag_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Uid" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Audios" Relationship="Self.FK__Audios__Tag_Id__7B5B524B" FromRole="Tags" ToRole="Audios" />
           <NavigationProperty Name="Canvases" Relationship="Self.FK__Canvases__Tag_Id__7C4F7684" FromRole="Tags" ToRole="Canvases" />
           <NavigationProperty Name="Files" Relationship="Self.FK__Files__Tag_Id__7A672E12" FromRole="Tags" ToRole="Files" />
           <NavigationProperty Name="Images" Relationship="Self.FK__Images__Tag_Id__7D439ABD" FromRole="Tags" ToRole="Images" />
           <NavigationProperty Name="Notepads" Relationship="Self.FK__Notepads__Tag_Id__787EE5A0" FromRole="Tags" ToRole="Notepads" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Tags__Uid__00200768" FromRole="Tags" ToRole="Users" />
           <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__Tag_Id__797309D9" FromRole="Tags" ToRole="Texts" />
           <NavigationProperty Name="Videos" Relationship="Self.FK__Videos__Tag_Id__7E37BEF6" FromRole="Tags" ToRole="Videos" />
           <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Visual_Bo__Tag_I__7F2BE32F" FromRole="Tags" ToRole="Visual_Boards" />
@@ -818,10 +839,13 @@
           <Property Name="Answer_2FA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="VaultPassword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="Salt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Collaborations" Relationship="Self.FK__Collaborati__Uid__66603565" FromRole="Users" ToRole="Collaboration" />
           <NavigationProperty Name="Notepads" Relationship="Self.FK__Notepads__Uid__2D27B809" FromRole="Users" ToRole="Notepads" />
           <NavigationProperty Name="PersonalVaults" Relationship="Self.FK__PersonalVau__Uid__0AD2A005" FromRole="Users" ToRole="PersonalVault" />
           <NavigationProperty Name="Reminders" Relationship="Self.FK__Reminders__Uid__286302EC" FromRole="Users" ToRole="Reminders" />
+          <NavigationProperty Name="Tags" Relationship="Self.FK__Tags__Uid__00200768" FromRole="Users" ToRole="Tags" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__Uid__239E4DCF" FromRole="Users" ToRole="Tasks" />
           <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hist__Uid__73BA3083" FromRole="Users" ToRole="Update_Histories" />
           <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Visual_Boar__Uid__5441852A" FromRole="Users" ToRole="Visual_Boards" />
@@ -1028,6 +1052,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Tags__Uid__00200768">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Tags">
+              <PropertyRef Name="Uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Texts__Tag_Id__797309D9">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Texts" Type="Self.Text" Multiplicity="*" />
@@ -1200,6 +1236,10 @@
           <AssociationSet Name="FK__Update_Hi__Remin__71D1E811" Association="Self.FK__Update_Hi__Remin__71D1E811">
             <End Role="Reminders" EntitySet="Reminders" />
             <End Role="Update_Histories" EntitySet="Update_Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tags__Uid__00200768" Association="Self.FK__Tags__Uid__00200768">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Tags" EntitySet="Tags" />
           </AssociationSet>
           <AssociationSet Name="FK__Texts__Tag_Id__797309D9" Association="Self.FK__Texts__Tag_Id__797309D9">
             <End Role="Tags" EntitySet="Tags" />
@@ -1375,6 +1415,7 @@
               <MappingFragment StoreEntitySet="Tags">
                 <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
                 <ScalarProperty Name="Tag_Name" ColumnName="Tag_Name" />
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1442,6 +1483,8 @@
                 <ScalarProperty Name="Answer_2FA" ColumnName="Answer_2FA" />
                 <ScalarProperty Name="VaultPassword" ColumnName="VaultPassword" />
                 <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
