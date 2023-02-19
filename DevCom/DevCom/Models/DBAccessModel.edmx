@@ -10,7 +10,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Audio_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Audio_Id" Type="varchar" MaxLength="10" />
           <Property Name="Tag_Id" Type="int" />
           <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
           <Property Name="Subtext_Type" Type="int" />
@@ -32,7 +32,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Canvas_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Canvas_Id" Type="varchar" MaxLength="10" />
           <Property Name="Tag_Id" Type="int" />
           <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
           <Property Name="Subtext_Type" Type="int" />
@@ -53,7 +53,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Pallete_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Pallete_Id" Type="varchar" MaxLength="10" />
           <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Files">
@@ -61,7 +61,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="File_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="File_Id" Type="varchar" MaxLength="10" />
           <Property Name="Tag_Id" Type="int" />
           <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
           <Property Name="Subtext_Type" Type="int" />
@@ -73,7 +73,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Image_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Image_Id" Type="varchar" MaxLength="10" />
           <Property Name="Tag_Id" Type="int" />
           <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
           <Property Name="Subtext_Type" Type="int" />
@@ -128,7 +128,7 @@
           <Key>
             <PropertyRef Name="Tag_Id" />
           </Key>
-          <Property Name="Tag_Id" Type="int" Nullable="false" />
+          <Property Name="Tag_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tag_Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Tasks">
@@ -148,7 +148,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Text_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Text_Id" Type="varchar" MaxLength="10" />
           <Property Name="Tag_Id" Type="int" />
           <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
           <Property Name="Subtext_Type" Type="int" />
@@ -160,7 +160,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UI_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UI_Id" Type="varchar" MaxLength="10" />
           <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Update_Histories">
@@ -198,7 +198,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Video_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Video_Id" Type="varchar" MaxLength="10" />
           <Property Name="Tag_Id" Type="int" />
           <Property Name="Subtext_Title" Type="varchar" MaxLength="100" />
           <Property Name="Subtext_Type" Type="int" />
@@ -218,10 +218,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Workflow_Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Workflow_Id" Type="varchar" MaxLength="10" />
           <Property Name="Data" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Audios__Tag_Id__3C69FB99">
+        <Association Name="FK__Audios__Tag_Id__7B5B524B">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Audios" Type="Self.Audios" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,7 +245,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Canvases__Tag_Id__412EB0B6">
+        <Association Name="FK__Canvases__Tag_Id__7C4F7684">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Canvases" Type="Self.Canvases" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,7 +281,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Files__Tag_Id__37A5467C">
+        <Association Name="FK__Files__Tag_Id__7A672E12">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Files" Type="Self.Files" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +293,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Images__Tag_Id__45F365D3">
+        <Association Name="FK__Images__Tag_Id__7D439ABD">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Images" Type="Self.Images" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,7 +317,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notepads__Tag_Id__2E1BDC42">
+        <Association Name="FK__Notepads__Tag_Id__787EE5A0">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Notepads" Type="Self.Notepads" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,7 +377,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Texts__Tag_Id__32E0915F">
+        <Association Name="FK__Texts__Tag_Id__797309D9">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Texts" Type="Self.Texts" Multiplicity="*" />
           <ReferentialConstraint>
@@ -449,7 +449,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Videos__Tag_Id__4AB81AF0">
+        <Association Name="FK__Videos__Tag_Id__7E37BEF6">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
           <ReferentialConstraint>
@@ -461,7 +461,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Visual_Bo__Tag_I__5535A963">
+        <Association Name="FK__Visual_Bo__Tag_I__7F2BE32F">
           <End Role="Tags" Type="Self.Tags" Multiplicity="0..1" />
           <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="*" />
           <ReferentialConstraint>
@@ -506,7 +506,7 @@
           <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visual_Boards" EntityType="Self.Visual_Boards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workflow_Designs" EntityType="Self.Workflow_Designs" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Audios__Tag_Id__3C69FB99" Association="Self.FK__Audios__Tag_Id__3C69FB99">
+          <AssociationSet Name="FK__Audios__Tag_Id__7B5B524B" Association="Self.FK__Audios__Tag_Id__7B5B524B">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Audios" EntitySet="Audios" />
           </AssociationSet>
@@ -514,7 +514,7 @@
             <End Role="Visual_Boards" EntitySet="Visual_Boards" />
             <End Role="BoardComponents" EntitySet="BoardComponents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Canvases__Tag_Id__412EB0B6" Association="Self.FK__Canvases__Tag_Id__412EB0B6">
+          <AssociationSet Name="FK__Canvases__Tag_Id__7C4F7684" Association="Self.FK__Canvases__Tag_Id__7C4F7684">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Canvases" EntitySet="Canvases" />
           </AssociationSet>
@@ -526,11 +526,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Collaboration" EntitySet="Collaboration" />
           </AssociationSet>
-          <AssociationSet Name="FK__Files__Tag_Id__37A5467C" Association="Self.FK__Files__Tag_Id__37A5467C">
+          <AssociationSet Name="FK__Files__Tag_Id__7A672E12" Association="Self.FK__Files__Tag_Id__7A672E12">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Files" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__Images__Tag_Id__45F365D3" Association="Self.FK__Images__Tag_Id__45F365D3">
+          <AssociationSet Name="FK__Images__Tag_Id__7D439ABD" Association="Self.FK__Images__Tag_Id__7D439ABD">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Images" EntitySet="Images" />
           </AssociationSet>
@@ -538,7 +538,7 @@
             <End Role="Notepads" EntitySet="Notepads" />
             <End Role="NoteContents" EntitySet="NoteContents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notepads__Tag_Id__2E1BDC42" Association="Self.FK__Notepads__Tag_Id__2E1BDC42">
+          <AssociationSet Name="FK__Notepads__Tag_Id__787EE5A0" Association="Self.FK__Notepads__Tag_Id__787EE5A0">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Notepads" EntitySet="Notepads" />
           </AssociationSet>
@@ -558,7 +558,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Tasks" EntitySet="Tasks" />
           </AssociationSet>
-          <AssociationSet Name="FK__Texts__Tag_Id__32E0915F" Association="Self.FK__Texts__Tag_Id__32E0915F">
+          <AssociationSet Name="FK__Texts__Tag_Id__797309D9" Association="Self.FK__Texts__Tag_Id__797309D9">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Texts" EntitySet="Texts" />
           </AssociationSet>
@@ -582,11 +582,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Update_Histories" EntitySet="Update_Histories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Videos__Tag_Id__4AB81AF0" Association="Self.FK__Videos__Tag_Id__4AB81AF0">
+          <AssociationSet Name="FK__Videos__Tag_Id__7E37BEF6" Association="Self.FK__Videos__Tag_Id__7E37BEF6">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Videos" EntitySet="Videos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Visual_Bo__Tag_I__5535A963" Association="Self.FK__Visual_Bo__Tag_I__5535A963">
+          <AssociationSet Name="FK__Visual_Bo__Tag_I__7F2BE32F" Association="Self.FK__Visual_Bo__Tag_I__7F2BE32F">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Visual_Boards" EntitySet="Visual_Boards" />
           </AssociationSet>
@@ -605,13 +605,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Audio_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Audio_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Tag_Id" Type="Int32" />
           <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Subtext_Type" Type="Int32" />
           <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Audio_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Audios__Tag_Id__3C69FB99" FromRole="Audios" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Audios__Tag_Id__7B5B524B" FromRole="Audios" ToRole="Tags" />
         </EntityType>
         <EntityType Name="BoardComponent">
           <Key>
@@ -629,13 +629,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Canvas_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Canvas_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Tag_Id" Type="Int32" />
           <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Subtext_Type" Type="Int32" />
           <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Canvas_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Canvases__Tag_Id__412EB0B6" FromRole="Canvases" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Canvases__Tag_Id__7C4F7684" FromRole="Canvases" ToRole="Tags" />
         </EntityType>
         <EntityType Name="Collaboration">
           <Key>
@@ -653,7 +653,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Pallete_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pallete_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="File">
@@ -661,26 +661,26 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="File_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="File_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Tag_Id" Type="Int32" />
           <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Subtext_Type" Type="Int32" />
           <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="File_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Files__Tag_Id__37A5467C" FromRole="Files" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Files__Tag_Id__7A672E12" FromRole="Files" ToRole="Tags" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Image_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Image_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Tag_Id" Type="Int32" />
           <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Subtext_Type" Type="Int32" />
           <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Image_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Images__Tag_Id__45F365D3" FromRole="Images" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Images__Tag_Id__7D439ABD" FromRole="Images" ToRole="Tags" />
         </EntityType>
         <EntityType Name="NoteContent">
           <Key>
@@ -703,7 +703,7 @@
           <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Update_Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="NoteContents" Relationship="Self.FK__NoteConte__Notep__4F7CD00D" FromRole="Notepads" ToRole="NoteContents" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Notepads__Tag_Id__2E1BDC42" FromRole="Notepads" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Notepads__Tag_Id__787EE5A0" FromRole="Notepads" ToRole="Tags" />
           <NavigationProperty Name="User" Relationship="Self.FK__Notepads__Uid__2D27B809" FromRole="Notepads" ToRole="Users" />
           <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Notep__6FE99F9F" FromRole="Notepads" ToRole="Update_Histories" />
         </EntityType>
@@ -738,16 +738,16 @@
           <Key>
             <PropertyRef Name="Tag_Id" />
           </Key>
-          <Property Name="Tag_Id" Type="Int32" Nullable="false" />
+          <Property Name="Tag_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tag_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Audios" Relationship="Self.FK__Audios__Tag_Id__3C69FB99" FromRole="Tags" ToRole="Audios" />
-          <NavigationProperty Name="Canvases" Relationship="Self.FK__Canvases__Tag_Id__412EB0B6" FromRole="Tags" ToRole="Canvases" />
-          <NavigationProperty Name="Files" Relationship="Self.FK__Files__Tag_Id__37A5467C" FromRole="Tags" ToRole="Files" />
-          <NavigationProperty Name="Images" Relationship="Self.FK__Images__Tag_Id__45F365D3" FromRole="Tags" ToRole="Images" />
-          <NavigationProperty Name="Notepads" Relationship="Self.FK__Notepads__Tag_Id__2E1BDC42" FromRole="Tags" ToRole="Notepads" />
-          <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__Tag_Id__32E0915F" FromRole="Tags" ToRole="Texts" />
-          <NavigationProperty Name="Videos" Relationship="Self.FK__Videos__Tag_Id__4AB81AF0" FromRole="Tags" ToRole="Videos" />
-          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Visual_Bo__Tag_I__5535A963" FromRole="Tags" ToRole="Visual_Boards" />
+          <NavigationProperty Name="Audios" Relationship="Self.FK__Audios__Tag_Id__7B5B524B" FromRole="Tags" ToRole="Audios" />
+          <NavigationProperty Name="Canvases" Relationship="Self.FK__Canvases__Tag_Id__7C4F7684" FromRole="Tags" ToRole="Canvases" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__Files__Tag_Id__7A672E12" FromRole="Tags" ToRole="Files" />
+          <NavigationProperty Name="Images" Relationship="Self.FK__Images__Tag_Id__7D439ABD" FromRole="Tags" ToRole="Images" />
+          <NavigationProperty Name="Notepads" Relationship="Self.FK__Notepads__Tag_Id__787EE5A0" FromRole="Tags" ToRole="Notepads" />
+          <NavigationProperty Name="Texts" Relationship="Self.FK__Texts__Tag_Id__797309D9" FromRole="Tags" ToRole="Texts" />
+          <NavigationProperty Name="Videos" Relationship="Self.FK__Videos__Tag_Id__7E37BEF6" FromRole="Tags" ToRole="Videos" />
+          <NavigationProperty Name="Visual_Boards" Relationship="Self.FK__Visual_Bo__Tag_I__7F2BE32F" FromRole="Tags" ToRole="Visual_Boards" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -768,20 +768,20 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Text_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Text_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Tag_Id" Type="Int32" />
           <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Subtext_Type" Type="Int32" />
           <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Text1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Texts__Tag_Id__32E0915F" FromRole="Texts" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Texts__Tag_Id__797309D9" FromRole="Texts" ToRole="Tags" />
         </EntityType>
         <EntityType Name="UI_Designs">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UI_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UI_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Update_Histories">
@@ -831,13 +831,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Video_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Video_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Tag_Id" Type="Int32" />
           <Property Name="Subtext_Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Subtext_Type" Type="Int32" />
           <Property Name="Subtext" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Video_link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Videos__Tag_Id__4AB81AF0" FromRole="Videos" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Videos__Tag_Id__7E37BEF6" FromRole="Videos" ToRole="Tags" />
         </EntityType>
         <EntityType Name="Visual_Boards">
           <Key>
@@ -848,7 +848,7 @@
           <Property Name="Tag_Id" Type="Int32" />
           <NavigationProperty Name="BoardComponents" Relationship="Self.FK__BoardComp__Board__6B24EA82" FromRole="Visual_Boards" ToRole="BoardComponents" />
           <NavigationProperty Name="Collaborations" Relationship="Self.FK__Collabora__Board__656C112C" FromRole="Visual_Boards" ToRole="Collaboration" />
-          <NavigationProperty Name="Tag" Relationship="Self.FK__Visual_Bo__Tag_I__5535A963" FromRole="Visual_Boards" ToRole="Tags" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK__Visual_Bo__Tag_I__7F2BE32F" FromRole="Visual_Boards" ToRole="Tags" />
           <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Board__72C60C4A" FromRole="Visual_Boards" ToRole="Update_Histories" />
           <NavigationProperty Name="User" Relationship="Self.FK__Visual_Boar__Uid__5441852A" FromRole="Visual_Boards" ToRole="Users" />
         </EntityType>
@@ -857,10 +857,10 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Workflow_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Workflow_Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Audios__Tag_Id__3C69FB99">
+        <Association Name="FK__Audios__Tag_Id__7B5B524B">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Audios" Type="Self.Audio" Multiplicity="*" />
           <ReferentialConstraint>
@@ -884,7 +884,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Canvases__Tag_Id__412EB0B6">
+        <Association Name="FK__Canvases__Tag_Id__7C4F7684">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Canvases" Type="Self.Canvas" Multiplicity="*" />
           <ReferentialConstraint>
@@ -920,7 +920,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Files__Tag_Id__37A5467C">
+        <Association Name="FK__Files__Tag_Id__7A672E12">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Files" Type="Self.File" Multiplicity="*" />
           <ReferentialConstraint>
@@ -932,7 +932,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Images__Tag_Id__45F365D3">
+        <Association Name="FK__Images__Tag_Id__7D439ABD">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Images" Type="Self.Image" Multiplicity="*" />
           <ReferentialConstraint>
@@ -956,7 +956,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Notepads__Tag_Id__2E1BDC42">
+        <Association Name="FK__Notepads__Tag_Id__787EE5A0">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Notepads" Type="Self.Notepad" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1028,7 +1028,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Texts__Tag_Id__32E0915F">
+        <Association Name="FK__Texts__Tag_Id__797309D9">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Texts" Type="Self.Text" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1040,7 +1040,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Videos__Tag_Id__4AB81AF0">
+        <Association Name="FK__Videos__Tag_Id__7E37BEF6">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Videos" Type="Self.Video" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1052,7 +1052,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Visual_Bo__Tag_I__5535A963">
+        <Association Name="FK__Visual_Bo__Tag_I__7F2BE32F">
           <End Role="Tags" Type="Self.Tag" Multiplicity="0..1" />
           <End Role="Visual_Boards" Type="Self.Visual_Boards" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1145,7 +1145,7 @@
           <EntitySet Name="Videos" EntityType="Self.Video" />
           <EntitySet Name="Visual_Boards" EntityType="Self.Visual_Boards" />
           <EntitySet Name="Workflow_Designs" EntityType="Self.Workflow_Designs" />
-          <AssociationSet Name="FK__Audios__Tag_Id__3C69FB99" Association="Self.FK__Audios__Tag_Id__3C69FB99">
+          <AssociationSet Name="FK__Audios__Tag_Id__7B5B524B" Association="Self.FK__Audios__Tag_Id__7B5B524B">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Audios" EntitySet="Audios" />
           </AssociationSet>
@@ -1153,7 +1153,7 @@
             <End Role="Visual_Boards" EntitySet="Visual_Boards" />
             <End Role="BoardComponents" EntitySet="BoardComponents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Canvases__Tag_Id__412EB0B6" Association="Self.FK__Canvases__Tag_Id__412EB0B6">
+          <AssociationSet Name="FK__Canvases__Tag_Id__7C4F7684" Association="Self.FK__Canvases__Tag_Id__7C4F7684">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Canvases" EntitySet="Canvases" />
           </AssociationSet>
@@ -1165,11 +1165,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Collaboration" EntitySet="Collaborations" />
           </AssociationSet>
-          <AssociationSet Name="FK__Files__Tag_Id__37A5467C" Association="Self.FK__Files__Tag_Id__37A5467C">
+          <AssociationSet Name="FK__Files__Tag_Id__7A672E12" Association="Self.FK__Files__Tag_Id__7A672E12">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Files" EntitySet="Files" />
           </AssociationSet>
-          <AssociationSet Name="FK__Images__Tag_Id__45F365D3" Association="Self.FK__Images__Tag_Id__45F365D3">
+          <AssociationSet Name="FK__Images__Tag_Id__7D439ABD" Association="Self.FK__Images__Tag_Id__7D439ABD">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Images" EntitySet="Images" />
           </AssociationSet>
@@ -1177,7 +1177,7 @@
             <End Role="Notepads" EntitySet="Notepads" />
             <End Role="NoteContents" EntitySet="NoteContents" />
           </AssociationSet>
-          <AssociationSet Name="FK__Notepads__Tag_Id__2E1BDC42" Association="Self.FK__Notepads__Tag_Id__2E1BDC42">
+          <AssociationSet Name="FK__Notepads__Tag_Id__787EE5A0" Association="Self.FK__Notepads__Tag_Id__787EE5A0">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Notepads" EntitySet="Notepads" />
           </AssociationSet>
@@ -1201,15 +1201,15 @@
             <End Role="Reminders" EntitySet="Reminders" />
             <End Role="Update_Histories" EntitySet="Update_Histories" />
           </AssociationSet>
-          <AssociationSet Name="FK__Texts__Tag_Id__32E0915F" Association="Self.FK__Texts__Tag_Id__32E0915F">
+          <AssociationSet Name="FK__Texts__Tag_Id__797309D9" Association="Self.FK__Texts__Tag_Id__797309D9">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Texts" EntitySet="Texts" />
           </AssociationSet>
-          <AssociationSet Name="FK__Videos__Tag_Id__4AB81AF0" Association="Self.FK__Videos__Tag_Id__4AB81AF0">
+          <AssociationSet Name="FK__Videos__Tag_Id__7E37BEF6" Association="Self.FK__Videos__Tag_Id__7E37BEF6">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Videos" EntitySet="Videos" />
           </AssociationSet>
-          <AssociationSet Name="FK__Visual_Bo__Tag_I__5535A963" Association="Self.FK__Visual_Bo__Tag_I__5535A963">
+          <AssociationSet Name="FK__Visual_Bo__Tag_I__7F2BE32F" Association="Self.FK__Visual_Bo__Tag_I__7F2BE32F">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="Visual_Boards" EntitySet="Visual_Boards" />
           </AssociationSet>

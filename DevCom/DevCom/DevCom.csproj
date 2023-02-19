@@ -200,6 +200,7 @@
     <Compile Include="Models\ViewModels\LoginVM.cs" />
     <Compile Include="Models\ViewModels\NotepadVM.cs" />
     <Compile Include="Models\ViewModels\RegistrationVM.cs" />
+    <Compile Include="Models\ViewModels\TagVM.cs" />
     <Compile Include="Models\Visual_Boards.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
     </Compile>

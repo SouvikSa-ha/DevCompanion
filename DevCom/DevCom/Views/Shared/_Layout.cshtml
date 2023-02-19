@@ -9,8 +9,8 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    <div class="container-fluid" style="background-color: #e4e9f7">
+<body style="background-color: #e4e9f7">
+    <div class="container-fluid">
         <div class="custom_sidebar">
             <div class="logo_details">
                 <i class="bx bxl-audible icon bx-sm"></i>
@@ -109,7 +109,7 @@
                 }
             </ul>
         </div>
-        <section class="home-section">
+        <section class="home-section" style="box-sizing: border-box;">
             <div class="row justify-content-between">
                 <div class="col text">
                     @ViewBag.Path
@@ -131,7 +131,9 @@
                 </div>
             </div>
             <div class="my-5"></div>
-            @RenderBody()
+            <div class="row"style="max-height: 80%">
+                @RenderBody()
+            </div>
         </section>
     </div>
 
