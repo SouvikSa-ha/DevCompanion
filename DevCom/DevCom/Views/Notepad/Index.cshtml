@@ -19,6 +19,12 @@
     Notepad _notepad = new Notepad();
 
     var text_id_list = new List<string>();
+    var image_id_list = new List<string>();
+    var audio_id_list = new List<string>();
+    var video_id_list = new List<string>();
+    var file_id_list = new List<string>();
+
+
     if (noteIndex >= 0)
     {
 
@@ -35,6 +41,38 @@
                     if (!text_id_list.Contains(_text.Text_Id))
                     {
                         text_id_list.Add(_text.Text_Id);
+                    }
+                }
+                else if (item.Contains(Model.imagesubstr))
+                {
+                    var _image = db.Images.Where(x => x.Image_Id.Equals(item)).First();
+                    if (!image_id_list.Contains(_image.Image_Id))
+                    {
+                        image_id_list.Add(_image.Image_Id);
+                    }
+                }
+                else if (item.Contains(Model.audiosubstr))
+                {
+                    var _audio = db.Audios.Where(x => x.Audio_Id.Equals(item)).First();
+                    if (!audio_id_list.Contains(_audio.Audio_Id))
+                    {
+                        audio_id_list.Add(_audio.Audio_Id);
+                    }
+                }
+                else if (item.Contains(Model.videosubstr))
+                {
+                    var _video = db.Videos.Where(x => x.Video_Id.Equals(item)).First();
+                    if (!video_id_list.Contains(_video.Video_Id))
+                    {
+                        video_id_list.Add(_video.Video_Id);
+                    }
+                }
+                else if (item.Contains(Model.filesubstr))
+                {
+                    var _file = db.Files.Where(x => x.File_Id.Equals(item)).First();
+                    if (!file_id_list.Contains(_file.File_Id))
+                    {
+                        file_id_list.Add(_file.File_Id);
                     }
                 }
             }
@@ -98,6 +136,22 @@
     .custom-active {
         background-color: #e0e9ff;
     }
+
+    #dropArea {
+        background: #b5b5b5;
+        border: black dashed 1px;
+        height: 50px;
+        text-align: center;
+        color: #fff;
+        padding-top: 12px;
+    }
+
+    .active-drop {
+        background: #77bafa !important;
+        border: solid 2px blue !important;
+        opacity: .5;
+        color: black !important;
+    }
 </style>
 <div class="container-fluid" style="max-height: 78vh;">
     <div class="row h-100">
@@ -150,7 +204,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="row overflow-auto scrollhide" style="min-height: 400px; max-height:400px;">
+                        <div class="row overflow-auto" style="min-height: 400px; max-height:400px;">
 
                             <h1 class="display-5 fw-bold">@_notepad.Title</h1>
                             <h4>Creation Date: @_notepad.Creation_Date</h4>
@@ -181,7 +235,7 @@
                                             var _text = db.Texts.Where(x => x.Text_Id.Equals(item)).FirstOrDefault();
                                             <div class="row justify-content-between">
                                                 <!-- Be cautios changing inside here... element traversal done-->
-                                                <div class="col-9 border rounded p-4">
+                                                <div class="col-9 border border-1 border-primary rounded p-4">
                                                     <p class="fw-bold opacity-50 lh-1"><small>Id: @_text.Text_Id</small></p>
                                                     <div class="text-input list-unstyled" id="@_text.Text_Id" contenteditable="false">
                                                         @Html.Raw(WebUtility.HtmlDecode(_text.Text1))
@@ -190,7 +244,7 @@
                                                 <div class="col-3 d-flex w-auto">
                                                     <button type="button" class="btn btn-sm" data-bs-toggle="modal"
                                                             data-bs-target="#contentTagModal" onclick="getContentId(this)"
-                                                             style="height: 30px">
+                                                            style="height: 30px">
                                                         @if (_text.Tag != null)
                                                         {
                                                             @_text.Tag.Tag_Name
@@ -201,7 +255,7 @@
                                                         }
                                                     </button>
                                                     <!-- Shifting to be continued -->
-                                                    <button type="button" class="btn" style="height: 30px"> 
+                                                    <button type="button" class="btn" style="height: 30px">
                                                         <i class='bx bxs-upvote'></i>
                                                     </button>
                                                     <button type="button" class="btn" style="height: 30px">
@@ -209,12 +263,12 @@
                                                     </button>
 
                                                     <button class="btn note-edit-btn" onclick="edit_and_save(this)"
-                                                             style="height: 30px">
+                                                            style="height: 30px">
                                                         <i class="fas fa-solid fa-edit changable-icon"></i>
                                                     </button>
                                                     <button type="button" class="btn " data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal" onclick="getContentId(this)"
-                                                             style="height: 30px">
+                                                            style="height: 30px">
                                                         <i class="fa-sharp fa-solid fa-trash"></i>
                                                     </button>
                                                 </div>
@@ -222,19 +276,188 @@
                                         }
                                         else if (item.Contains(Model.imagesubstr))
                                         {
+                                            var _image = db.Images.Where(x => x.Image_Id.Equals(item)).FirstOrDefault();
+                                            <div class="row justify-content-between">
+                                                <!-- Be cautios changing inside here... element traversal done-->
+                                                <div class="col-9 border border-1 border-primary rounded p-4">
+                                                    <p class="fw-bold opacity-50 lh-1"><small>Id: @_image.Image_Id</small></p>
+                                                    <div class="card mb-3" id="@_image.Image_Id">
+                                                        <div class="row g-0">
+                                                            <div class="col-md-4">
+                                                                <img src="@Url.Content(_image.Image_link)" class="img-fluid rounded-start" alt="...">
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="card-body">
+                                                                    <!--set muted text if subtext null-->
+                                                                    <h5 class="card-title"><!--addsubtexttitle--></h5>
+                                                                    <p class="card-text"><!--addsubtext--></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 d-flex w-auto">
+                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#contentTagModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        @if (_image.Tag != null)
+                                                        {
+                                                            @_image.Tag.Tag_Name
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>add tag</span>
+                                                        }
+                                                    </button>
+                                                    <!-- Shifting to be continued -->
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-upvote'></i>
+                                                    </button>
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-downvote'></i>
+                                                    </button>
 
+                                                    <button type="button" class="btn " data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         }
                                         else if (item.Contains(Model.audiosubstr))
                                         {
+                                            var _audio = db.Audios.Where(x => x.Audio_Id.Equals(item)).FirstOrDefault();
+                                            <div class="row justify-content-between">
+                                                <!-- Be cautios changing inside here... element traversal done-->
+                                                <div class="col-9 border border-1 border-primary rounded p-4">
+                                                    <p class="fw-bold opacity-50 lh-1"><small>Id: @_audio.Audio_Id</small></p>
+                                                    <div class="card mb-3" id="@_audio.Audio_Id">
+                                                        <audio controls class="w-100">
+                                                            <source src="@Url.Content(_audio.Audio_link)">
+                                                        </audio>
+                                                        <div class="card-body">
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 d-flex w-auto">
+                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#contentTagModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        @if (_audio.Tag != null)
+                                                        {
+                                                            @_audio.Tag.Tag_Name
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>add tag</span>
+                                                        }
+                                                    </button>
+                                                    <!-- Shifting to be continued -->
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-upvote'></i>
+                                                    </button>
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-downvote'></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn " data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         }
                                         else if (item.Contains(Model.videosubstr))
                                         {
+                                            var _video = db.Videos.Where(x => x.Video_Id.Equals(item)).FirstOrDefault();
+                                            <div class="row justify-content-between">
+                                                <!-- Be cautios changing inside here... element traversal done-->
+                                                <div class="col-9 border border-1 border-primary rounded p-4">
+                                                    <p class="fw-bold opacity-50 lh-1"><small>Id: @_video.Video_Id</small></p>
+                                                    <div class="card m-4 w-100 " id="@_video.Video_Id">
+                                                        <video controls>
+                                                            <source src="@Url.Content(_video.Video_link)">
+                                                        </video>
+                                                        <div class="card-body">
+                                                            <!--tobedone-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 d-flex w-auto">
+                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#contentTagModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        @if (_video.Tag != null)
+                                                        {
+                                                            @_video.Tag.Tag_Name
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>add tag</span>
+                                                        }
+                                                    </button>
+                                                    <!-- Shifting to be continued -->
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-upvote'></i>
+                                                    </button>
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-downvote'></i>
+                                                    </button>
 
+                                                    <button type="button" class="btn " data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         }
                                         else if (item.Contains(Model.filesubstr))
                                         {
+                                            var _file = db.Files.Where(x => x.File_Id.Equals(item)).FirstOrDefault();
+                                            <div class="row justify-content-between">
+                                                <!-- Be cautios changing inside here... element traversal done-->
+                                                <div class="col-9 border rounded p-4">
+                                                    <p class="fw-bold opacity-50 lh-1"><small>Id: @_file.File_Id</small></p>
+                                                    <div class="card mb-3 w-100" id="@_file.File_Id">
+                                                        <embed src="@Url.Content(_file.File_link)" height="400" />
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Card title</h5>
+                                                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 d-flex w-auto">
+                                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#contentTagModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        @if (_file.Tag != null)
+                                                        {
+                                                            @_file.Tag.Tag_Name
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>add tag</span>
+                                                        }
+                                                    </button>
+                                                    <!-- Shifting to be continued -->
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-upvote'></i>
+                                                    </button>
+                                                    <button type="button" class="btn" style="height: 30px">
+                                                        <i class='bx bxs-downvote'></i>
+                                                    </button>
 
+                                                    <button type="button" class="btn " data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal" onclick="getContentId(this)"
+                                                            style="height: 30px">
+                                                        <i class="fa-sharp fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         }
                                         else if (item.Contains(Model.canvassubstr))
                                         {
@@ -247,20 +470,11 @@
                                 <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#addTextModal">
                                     + Add Text
                                 </button>
-                                <button class="btn border-primary" onclick="add-image()">
-                                    Add Image
+                                <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
+                                    + Add File
                                 </button>
-                                <button class="btn border-primary" onclick="add-audio()">
-                                    Add Audio
-                                </button>
-                                <button class="btn border-primary" onclick="add-video()">
-                                    Add Video
-                                </button>
-                                <button class="btn border-primary" onclick="add-canvas()">
-                                    Add Canvas
-                                </button>
-                                <button class="btn border-primary" onclick="add-file()">
-                                    Add a PDF File
+                                <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#addDrawingModal">
+                                    + Add Drawing
                                 </button>
                             </div>
                         </div>
@@ -366,7 +580,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <span>Select Existing: </span>
+                <span class="mb-3">Select: </span>
                 @if (noteIndex >= 0)
                 {
                     <select class="form-select" id="text-id-list" name="Texts" onchange="change_text_selection(this)">
@@ -526,8 +740,87 @@
     </div>
 </div>
 
+<div class="modal fade" id="uploadFileModal" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="uploadFileModalLabel">Upload a file</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex align-items-center">
+                    <span class="me-3">Select File Type: </span>
+                    <select class="form-select w-auto" id="file_id_selected" onchange="change_file_type_selection(this)">
+                        <option>Image</option>
+                        <option>Video</option>
+                        <option>Audio</option>
+                        <option>PDF</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center my-3">
+                    <span class="me-3">Select: </span>
+                    @if (noteIndex >= 0)
+                    {
+                        <select class="form-select w-auto" id="image-id-list" onchange="change_file_selection(this)">
+                            <option>New</option>
+                            @foreach (var item in image_id_list)
+                            {
+                                if (!Model.Content_ids.ElementAt(noteIndex).Contains(item))
+                                {
+                                    <option>@item</option>
+                                }
+                            }
+                        </select>
+                        <select class="form-select w-auto" id="audio-id-list" onchange="change_file_selection(this)">
+                            <option>New</option>
+                            @foreach (var item in audio_id_list)
+                            {
+                                if (!Model.Content_ids.ElementAt(noteIndex).Contains(item))
+                                {
+                                    <option>@item</option>
+                                }
+                            }
+                        </select>
+                        <select class="form-select w-auto" id="video-id-list" onchange="change_file_selection(this)">
+                            <option>New</option>
+                            @foreach (var item in video_id_list)
+                            {
+                                if (!Model.Content_ids.ElementAt(noteIndex).Contains(item))
+                                {
+                                    <option>@item</option>
+                                }
+                            }
+                        </select>
+                        <select class="form-select w-auto" id="file-id-list" onchange="change_file_selection(this)">
+                            <option>New</option>
+                            @foreach (var item in file_id_list)
+                            {
+                                if (!Model.Content_ids.ElementAt(noteIndex).Contains(item))
+                                {
+                                    <option>@item</option>
+                                }
+                            }
+                        </select>
+                    }
+                </div>
+                <!--dropbox-->
+                <div id="dropArea">
+                    Drop your files here
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="file-confirm" disabled onclick="add_file()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @section Scripts{
+    <script src="https://code.jquery.com/jquery-migrate-3.0.1.js"></script>
+    <script src="~/Scripts/jquery.filedrop.js"></script>
     <script type="text/javascript">
 
         var items = document.querySelectorAll(".notes"), tab = [];
@@ -757,7 +1050,7 @@
             }
 
             tag_name_selected = "New";
-           
+
 
             $.ajax({
                 type: "POST",
@@ -811,6 +1104,105 @@
                 }
             })
         }
+
+        $('#image-id-list').prop('hidden', false);
+        $('#audio-id-list').prop('hidden', true);
+        $('#video-id-list').prop('hidden', true);
+        $('#file-id-list').prop('hidden', true);
+
+        function change_file_type_selection(val) {
+            file_type_selected = val.value;
+            console.log(file_type_selected);
+            if (val.value == 'Image') {
+                $('#image-id-list').prop('hidden', false);
+                $('#audio-id-list').prop('hidden', true);
+                $('#video-id-list').prop('hidden', true);
+                $('#file-id-list').prop('hidden', true);
+            }
+            else if (val.value == 'Audio') {
+                $('#image-id-list').prop('hidden', true);
+                $('#audio-id-list').prop('hidden', false);
+                $('#video-id-list').prop('hidden', true);
+                $('#file-id-list').prop('hidden', true);
+            }
+            else if (val.value == 'Video') {
+                $('#image-id-list').prop('hidden', true);
+                $('#audio-id-list').prop('hidden', true);
+                $('#video-id-list').prop('hidden', false);
+                $('#file-id-list').prop('hidden', true);
+            }
+            else if (val.value == 'PDF') {
+                $('#image-id-list').prop('hidden', true);
+                $('#audio-id-list').prop('hidden', true);
+                $('#video-id-list').prop('hidden', true);
+                $('#file-id-list').prop('hidden', false);
+            }
+        }
+
+        var file_id_selected = "New";
+
+        function change_file_selection(val) {
+            file_id_selected = val.value;
+            if (file_id_selected != "New") {
+                $('#dropArea').prop('hidden', true);
+                $('#file-confirm').prop('disabled', false);
+            }
+            else {
+                $('#dropArea').prop('hidden', false);
+                $('#file-confirm').prop('disabled', true);
+            }
+        }
+
+        function add_file() {
+
+            var obj = { content_id: file_id_selected };
+
+            $.ajax({
+                type: "POST",
+                data: obj,
+                url: "/Notepad/AddContent",
+                success: function () {
+                    window.location.href = "/Notepad/Index";
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+        $(function () {
+            $('#dropArea').filedrop({
+                url: '@Url.Action("UploadFiles")',
+                allowedfileextensions: ['.jpg', '.jpeg', '.png', '.gif', '.aac', '.wav', '.m4a', '.mp3', '.mp4', '.webm', '.pdf'],
+                paramname: 'files',
+                data: {
+                    content_type: function () {
+                        var val = document.getElementById('file_id_selected').value;
+                        return val;           
+                    },
+                },
+                maxfiles: 1,
+                maxfilesize: 500, // in MB
+                dragOver: function () {
+                    $('#dropArea').addClass('active-drop');
+                },
+                dragLeave: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                drop: function () {
+                    $('#dropArea').removeClass('active-drop');
+                },
+                afterAll: function (e) {
+                    window.location.href = "/Notepad/Index";
+                },
+                uploadFinished: function (i, file, response, time) {
+                    
+                }
+            })
+        })
 
     </script>
 

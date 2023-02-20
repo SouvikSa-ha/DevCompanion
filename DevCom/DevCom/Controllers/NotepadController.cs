@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using DevCom.Models.ViewModels;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace DevCom.Controllers
 {
@@ -191,26 +192,36 @@ namespace DevCom.Controllers
             else if (data.Contains(model.imagesubstr))
             {
                 var image = db.Images.Where(x => x.Image_Id.Equals(data)).First();
+                string fullPath = Request.MapPath(@image.Image_link);
+                System.IO.File.Delete(fullPath);
                 db.Images.Remove(image);
             }
             else if (data.Contains(model.audiosubstr))
             {
                 var audio = db.Audios.Where(x => x.Audio_Id.Equals(data)).First();
+                string fullPath = Request.MapPath(@audio.Audio_link);
+                System.IO.File.Delete(fullPath);
                 db.Audios.Remove(audio);
             }
             else if (data.Contains(model.videosubstr))
             {
                 var video = db.Videos.Where(x => x.Video_Id.Equals(data)).First();
+                string fullPath = Request.MapPath(@video.Video_link);
+                System.IO.File.Delete(fullPath);
                 db.Videos.Remove(video);
             }
             else if (data.Contains(model.filesubstr))
             {
                 var file = db.Files.Where(x => x.File_Id.Equals(data)).First();
+                string fullPath = Request.MapPath(@file.File_link);
+                System.IO.File.Delete(fullPath);
                 db.Files.Remove(file);
             }
             else if (data.Contains(model.canvassubstr))
             {
                 var canvas = db.Canvases.Where(x => x.Canvas_Id.Equals(data)).First();
+                string fullPath = Request.MapPath(@canvas.Canvas_link);
+                System.IO.File.Delete(fullPath);
                 db.Canvases.Remove(canvas);
             }
             db.SaveChanges();
@@ -269,15 +280,18 @@ namespace DevCom.Controllers
             }
             else
             {
-                var tag = db.Tags.Where(x => x.Tag_Name.Equals(data.TagName)).First();
-                if (tag != null) //if not added
+                var tag = db.Tags.Where(x => x.Tag_Name.Equals(data.TagName)).ToList();
+                if (tag.Count == 0) //not added
                 {
-                    tag.Tag_Name = data.TagName;
-                    tag.Uid = Convert.ToInt32(Session["UidSS"]);
+                    Tag _tag = new Tag();
+                    _tag.Tag_Name = data.TagName;
+                    _tag.Uid = Convert.ToInt32(Session["UidSS"]);
+                    tag.Add(_tag);
+                    db.Tags.Add(_tag);
                     db.SaveChanges();
                 }
 
-                notepad.Tag_Id = tag.Tag_Id;
+                notepad.Tag_Id = tag.First().Tag_Id;
                 db.SaveChanges();
                 if (data.ApplyContents)
                 {
@@ -286,7 +300,7 @@ namespace DevCom.Controllers
                     foreach (var item in contents)
                     {
                         dynamic content = GetContent(item);
-                        content.Tag_Id = tag.Tag_Id;
+                        content.Tag_Id = tag.First().Tag_Id;
                         db.SaveChanges();
                     }
                 }
@@ -327,17 +341,20 @@ namespace DevCom.Controllers
             }
             else
             {
-                var tag = db.Tags.Where(x => x.Tag_Name.Equals(data.TagName)).First();
-                if (tag != null) //not added
+                var tag = db.Tags.Where(x => x.Tag_Name.Equals(data.TagName)).ToList();
+                if (tag.Count == 0) //not added
                 {
-                    tag.Tag_Name = data.TagName;
-                    tag.Uid = Convert.ToInt32(Session["UidSS"]);
+                    Tag _tag = new Tag(); 
+                    _tag.Tag_Name = data.TagName;
+                    _tag.Uid = Convert.ToInt32(Session["UidSS"]);
+                    tag.Add(_tag);
+                    db.Tags.Add(_tag);
                     db.SaveChanges();
                 }
 
                 dynamic content = GetContent(item);
                 
-                content.Tag_Id = tag.Tag_Id;
+                content.Tag_Id = tag.First().Tag_Id;
                 db.SaveChanges();
             }
 
@@ -362,5 +379,101 @@ namespace DevCom.Controllers
                 content = db.Canvases.Where(x => x.Canvas_Id.Equals(item.Content_Id)).First();
             return content;
         }
+
+        [HttpPost]
+        public EmptyResult AddContent(string content_id)
+        {
+            NoteContent nc = new NoteContent();
+            nc.Notepad_Id = Convert.ToInt32(TempData["noteid"]);
+            
+            nc.Content_Id = content_id;
+
+            db.NoteContents.Add(nc);
+            db.SaveChanges();
+
+            var note = db.Notepads.Where(x => x.Notepad_Id.Equals(nc.Notepad_Id)).First();
+            note.Update_Date = DateTime.Now;
+            db.SaveChanges();
+            return null;
+        }
+
+        [HttpPost]
+        public EmptyResult UploadFiles(IEnumerable<HttpPostedFileBase> files, string content_type)
+        {
+            NoteContent nc = new NoteContent();
+            nc.Notepad_Id = Convert.ToInt32(TempData["noteid"]);
+            foreach (var file in files)
+            {
+                string filePath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                if (content_type.Equals("Image"))
+                {
+                    Image content = new Image();
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Assets/Images"), filePath));
+                    content.Image_link = @"~/Assets/Images/" + @filePath;
+                    db.Images.Add(content);
+                    db.SaveChanges();
+
+                    content.Image_Id = "i_" + content.Id.ToString();
+
+                    db.SaveChanges();
+                    nc.Content_Id = content.Image_Id;
+                    db.NoteContents.Add(nc);
+                    db.SaveChanges();
+                }
+                else if (content_type.Equals("Audio"))
+                {
+                    Audio content = new Audio();
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Assets/Audios"), filePath));
+                    content.Audio_link = @"~/Assets/Audios/" + @filePath;
+                    db.Audios.Add(content);
+                    db.SaveChanges();
+
+                    content.Audio_Id = "a_" + content.Id.ToString();
+
+                    db.SaveChanges();
+                    nc.Content_Id = content.Audio_Id;
+                    db.NoteContents.Add(nc);
+                    db.SaveChanges();
+                }
+                else if (content_type.Equals("Video"))
+                {
+                    Video content = new Video();
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Assets/Videos"), filePath));
+                    content.Video_link = @"~/Assets/Videos/" + @filePath;
+                    db.Videos.Add(content);
+                    db.SaveChanges();
+
+                    content.Video_Id = "v_" + content.Id.ToString();
+
+                    db.SaveChanges();
+                    nc.Content_Id = content.Video_Id;
+                    db.NoteContents.Add(nc);
+                    db.SaveChanges();
+                }
+                else if (content_type.Equals("PDF"))
+                {
+                    Models.File content = new Models.File();
+                    file.SaveAs(Path.Combine(Server.MapPath("~/Assets/Files"), filePath));
+                    content.File_link = @"~/Assets/Files/" + @filePath;
+                    db.Files.Add(content);
+                    db.SaveChanges();
+
+                    content.File_Id = "i_" + content.Id.ToString();
+
+                    db.SaveChanges();
+                    nc.Content_Id = content.File_Id;
+                    db.NoteContents.Add(nc);
+                    db.SaveChanges();
+                }
+            }
+
+            var note = db.Notepads.Where(x => x.Notepad_Id.Equals(nc.Notepad_Id)).First();
+            note.Update_Date = DateTime.Now;
+            db.SaveChanges();
+
+            return null;
+        }
+
+        
     }
 }

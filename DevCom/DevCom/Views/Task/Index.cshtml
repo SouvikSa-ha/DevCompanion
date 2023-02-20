@@ -1,6 +1,389 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@model IEnumerable<DevCom.Models.Task>
+@{ 
+
 }
 
-<h2>this is task</h2>
+<style>
+    #body {
+        background: #2C535A;
+        width: 100%;
+        min-height: 80vh;
+    }
+
+    table td {
+        height: 50px;
+        padding: 5px;
+    }
+
+        table td button {
+            height: 35px;
+        }
+
+    table {
+        background: #CCCCCC;
+    }
+
+    .board-column {
+        background: #ebecf0;
+        padding: 5px;
+        min-height: 100%;
+    }
+
+        .board-column h3 {
+            text-align: center;
+            margin-left: 0px;
+            color: #264F56;
+        }
+
+    .board {
+        min-height: 30px;
+        padding: 10px;
+        background: #90AEB3;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.06);
+        width: 92%;
+        display: inline-block;
+        margin: 5px;
+        border-radius: 4px;
+    }
+
+    .board-form button {
+        height: 35px;
+    }
+
+    .board-form {
+        margin-left: 5px;
+    }
+
+    .board-items {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .box {
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+
+    .button1 {
+        background-color: white;
+        color: black;
+        border: 2px solid #4CAF50;
+    }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    .button2 {
+        background-color: white;
+        color: black;
+        border: 2px solid #008CBA;
+    }
+
+        .button2:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+
+    .button3 {
+        background-color: white;
+        color: black;
+        border: 2px solid #610000;
+    }
+
+        .button3:hover {
+            background-color: #630000;
+            color: white;
+        }
+
+    .button4 {
+        background-color: white;
+        color: black;
+        border: 2px solid #b7bb35;
+    }
+
+        .button4:hover {
+            background-color: #b7bb35;
+            color: white;
+        }
+</style>
+<div id="body" class="overflow-auto">
+    <h2 style="text-align: center;">Kanban Board</h2>
+    <div class="row h-75">
+        <div class="board-column col ms-3" style="max-width: 24%">
+            <h3>Backlog</h3>
+            <div class="board-form">
+                <div class="d-flex mb-2">
+                    <input type="text" id="back_input" class="form-control me-2" style="width: 96.5%" autocomplete="off">
+                    <button name="save-backlog" id="backlog" style="font-size: 14px;" onclick="save_task(this)">Save</button>
+                </div>
+            </div>
+            <div class="board-items px-2 w-100">
+                @foreach (var item in Model)
+                {
+                    if(item.Status == 0)
+                    {
+                        <div>
+                            <p class="mt-3 mb-1 text-truncate w-100" id="@item.Task_Id">
+                                @item.Short_Description
+                            </p>
+                            <button onclick="edit_task('back_input', this)">Edit</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="select_task(this)">
+                                Del
+                            </button>
+                            <button class="button button2" onclick="goto_pending(this)">Pend</button>
+                            <button class="button button3" onclick="goto_prog(this)">In Prog</button>
+                            <button class="button button4" onclick="goto_complete(this)">Comp</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="col board-column mx-3" style="max-width: 24%">
+            <h3>Pending</h3>
+            <div class="board-form">
+                <div class="d-flex mb-2">
+                    <input type="text" id="pen_input" class="form-control me-2" style="width: 96.5%" autocomplete="off">
+                    <button name="save-backlog" id="pending" style="font-size: 14px;" onclick="save_task(this)">Save</button>
+                </div>
+            </div>
+            <div class="board-items px-2 w-100">
+                @foreach (var item in Model)
+                {
+                    if (item.Status == 1)
+                    {
+                        <div>
+                            <p class="mt-3 mb-1 text-truncate w-100" id="@item.Task_Id">
+                                @item.Short_Description
+                            </p>
+                            <button onclick="edit_task('pen_input', this)">Edit</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="select_task(this)">
+                                Del
+                            </button>
+                            <button class="button button1" onclick="goto_backlog(this)">Backlog</button>
+                            <button class="button button3" onclick="goto_prog(this)">In Prog</button>
+                            <button class="button button4" onclick="goto_complete(this)">Comp</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="board-column col" style="max-width: 24%">
+            <h3>In Progress</h3>
+            <div class="board-form">
+                <div class="d-flex mb-2">
+                    <input type="text" id="prog_input" class="form-control me-2" style="width: 96.5%" autocomplete="off">
+                    <button name="save-backlog" id="in_progress" style="font-size: 14px;" onclick="save_task(this)">Save</button>
+                </div>
+            </div>
+            <div class="board-items px-2 w-100">
+                @foreach (var item in Model)
+                {
+                    if (item.Status == 2)
+                    {
+                        <div>
+                            <p class="mt-3 mb-1 text-truncate w-100" id="@item.Task_Id">
+                                @item.Short_Description
+                            </p>
+                            <button onclick="edit_task('prog_input', this)">Edit</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="select_task(this)">
+                                Del
+                            </button>
+                            <button class="button button1" onclick="goto_backlog(this)">Backlog</button>
+                            <button class="button button2" onclick="goto_pending(this)">Pend</button>
+                            <button class="button button4" onclick="goto_complete(this)">Comp</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="board-column col mx-3" style="max-width: 24%">
+            <h3>Completed</h3>
+            <div class="board-form">
+                <div class="d-flex mb-2">
+                    <input type="text" id="com_imput" class="form-control me-2" style="width: 96.5%" autocomplete="off">
+                    <button name="save-backlog" id="completed" style="font-size: 14px;" onclick="save_task(this)">Save</button>
+                </div>
+            </div>
+            <div class="board-items px-2 w-100">
+                @foreach (var item in Model)
+                {
+                    if (item.Status == 3)
+                    {
+                        <div>
+                            <p class="mt-3 mb-1 text-truncate w-100" id="@item.Task_Id">
+                                @item.Short_Description
+                            </p>
+                            <button onclick="edit_task('com_imput', this)">Edit</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="select_task(this)">
+                                Del
+                            </button>
+                            <button class="button button1" onclick="goto_backlog(this)">Backlog</button>
+                            <button class="button button2" onclick="goto_pending(this)">Pend</button>
+                            <button class="button button3" onclick="goto_prog(this)">In Prog</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" data-bs-backdrop="false" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="delete_task()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    function goto_backlog(e) {
+        change_status(e, 0);
+    }
+
+    function goto_pending(e) {
+        change_status(e, 1);
+    }
+
+    function goto_prog(e) {
+        change_status(e, 2);
+    }
+
+    function goto_complete(e) {
+        change_status(e, 3);
+    }
+
+    function change_status(e, status) {
+        var a = e.parentElement.children[0].id;
+        var obj = {
+            Status: status,
+            Task_Id: a
+        };
+        console.log(obj);
+        $.ajax({
+            type: "POST",
+            url: "/Task/ChangeState",
+            data: obj,
+            success: function () {
+                window.location.href = "/Task/Index";
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+    var selected_task = 0;
+    function select_task(e) {
+        selected_task = e.parentElement.children[0].id;
+        console.log(selected_task);
+    }
+
+    function delete_task(){
+        var obj = {
+            Task_Id: selected_task
+        };
+        console.log(obj);
+        $.ajax({
+            type: "POST",
+            url: "/Task/Delete",
+            data: obj,
+            success: function () {
+                window.location.href = "/Task/Index";
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+    var saveMode = 'add';
+
+    function edit_task(target, e) {
+        var a = e.previousElementSibling.innerHTML;
+        a = a.replace(/^\s+/g, '');
+        a = a.replace(/\s+$/g, '');
+        console.log(a);
+        saveMode = 'edit';
+        if (target == 'back_input') {
+            $('#back_input').val(a);
+        }
+        else if (target == 'pen_input') {
+            $('#pen_input').val(a);
+        }
+        else if (target == 'prog_input') {
+            $('#prog_input').val(a);
+        }
+        else if (target == 'com_imput') {
+            $('#com_imput').val(a);
+        }
+        selected_task = e.previousElementSibling.id;
+    }
+    
+
+    function save_task(e) {
+        var a = e.previousElementSibling.value;
+        var b = 0;
+        if (e.id == 'pending') b = 1;
+        else if (e.id == 'in_progress') b = 2;
+        else if (e.id == 'completed') b = 3;
+        
+        if (saveMode == "add") {
+            var obj = {
+                Short_Description: a,
+                Status: b
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Task/Add",
+                data: obj,
+                success: function () {
+                    window.location.href = "/Task/Index";
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+        else {
+            var obj = {
+                Short_Description: a,
+                Status: b,
+                Task_Id: selected_task
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Task/Edit",
+                data: obj,
+                success: function () {
+                    window.location.href = "/Task/Index";
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+    }
+
+</script>
