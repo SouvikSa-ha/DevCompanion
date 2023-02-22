@@ -1,7 +1,16 @@
-﻿
+﻿@model IEnumerable<DevCom.Models.Visual_Boards>
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index of vb</h2>
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <a class="btn text-center border-primary" href="~/VisualBoard/Board?id=@item.Board_Id" id="@item.Board_Id" style="height: 200px; width: 200px;">
+            <h5 class="text-truncate">@item.Title</h5>
+            <p>Creation Date:<br/> @item.Creation_Date</p>
+            <p>Update Date:<br/> @item.Update_Date</p>
+        </a>  
+    }
+</div>
 

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using DevCom.Models;
@@ -48,6 +51,14 @@ namespace DevCom.Controllers
                     User user = new User();
                     user.Username = _user.Username;
                     user.Password = _user.Password;
+
+                    string generatedSalt = GenerateSalt();
+                    byte[] hashedPassword = GetHash(user.Password, generatedSalt);
+                    string hashedString64Password = Convert.ToBase64String(hashedPassword);
+
+                    user.Password = hashedString64Password;
+                    user.Salt = generatedSalt;
+
                     user.Email = _user.Email;
                     user.EmailConfirmed = false;
                     user.CreationDate = DateTime.Now;
@@ -79,8 +90,10 @@ namespace DevCom.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.Where(u => u.Email.Equals(_user.Email) && u.Password.Equals(_user.Password)).FirstOrDefault();
-                if(user != null)
+                var user = db.Users.Where(u => u.Email.Equals(_user.Email)).FirstOrDefault();
+                bool matched = ComnpareHashedPasswords(_user.Password, user.Password, user.Salt);
+                
+                if(matched)
                 {
                     Session["UidSS"] = user.Uid.ToString();
                     Session["UsernameSS"] = user.Username.ToString();
@@ -94,9 +107,41 @@ namespace DevCom.Controllers
             return View();
         }
 
+        public ActionResult ShowProfile()
+        {
+            return View();
+        }
 
+        public ActionResult EditProfile(HttpPostedFileBase file)
+        {
+            if(file!=null && file.ContentLength > 0)
+            {
+                string filename = Path.GetFileName(file.FileName);
+                //string filepath = Path.Combine()
+            }
+            return View();
+        }
 
+        private string GenerateSalt()
+        {
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+            return Convert.ToBase64String(salt);
+        }
 
+        private byte[] GetHash(string plainPassword, string salt)
+        {
+            byte[] byteArray = Encoding.Unicode.GetBytes(String.Concat(salt, plainPassword));
+            SHA256Managed SHA256 = new SHA256Managed();
+            byte[] hashedBytes = SHA256.ComputeHash(byteArray);
+            return hashedBytes;
+        }
+
+        private bool ComnpareHashedPasswords(string userInputPassword, string existingHashedPassword, string salt)
+        {
+            string userInputHashedPassword = Convert.ToBase64String(GetHash(userInputPassword, salt));
+            return existingHashedPassword == userInputHashedPassword;
+        }
 
 
     }

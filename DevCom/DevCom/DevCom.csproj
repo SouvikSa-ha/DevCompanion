@@ -121,6 +121,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\NotepadController.cs" />
+    <Compile Include="Controllers\ReminderController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VisualBoardController.cs" />
@@ -196,10 +197,14 @@
     <Compile Include="Models\Video.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\BoardReturnVM.cs" />
+    <Compile Include="Models\ViewModels\BoardVM.cs" />
     <Compile Include="Models\ViewModels\ContentAddModel.cs" />
     <Compile Include="Models\ViewModels\LoginVM.cs" />
     <Compile Include="Models\ViewModels\NotepadVM.cs" />
     <Compile Include="Models\ViewModels\RegistrationVM.cs" />
+    <Compile Include="Models\ViewModels\ReminderVM.cs" />
+    <Compile Include="Models\ViewModels\RowShiftVM.cs" />
     <Compile Include="Models\ViewModels\TagVM.cs" />
     <Compile Include="Models\Visual_Boards.cs">
       <DependentUpon>DBAccessModel.tt</DependentUpon>
@@ -321,12 +326,18 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\LoginReminder.cshtml" />
     <Content Include="Views\Home\WelcomeUser.cshtml" />
+    <Content Include="Views\Auth\ShowProfile.cshtml" />
+    <Content Include="Views\Auth\EditProfile.cshtml" />
+    <Content Include="Views\Reminder\Index.cshtml" />
+    <Content Include="Views\VisualBoard\Board.cshtml" />
+    <Content Include="Views\VisualBoard\Plain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Assets\Audios\" />
     <Folder Include="Assets\Files\" />
     <Folder Include="Assets\Images\" />
+    <Folder Include="Assets\ProfileImages\" />
     <Folder Include="Assets\Videos\" />
   </ItemGroup>
   <ItemGroup>

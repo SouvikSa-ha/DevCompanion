@@ -22,10 +22,12 @@ namespace DevCom.Models
     
         public int Reminder_Id { get; set; }
         public int Uid { get; set; }
-        public string Reminder_Time { get; set; }
+        public System.DateTime Reminder_Time { get; set; }
         public string Title { get; set; }
         public string Info { get; set; }
-        public System.DateTime Deadline { get; set; }
+        public Nullable<System.DateTime> Deadline { get; set; }
+        public string ThemeColor { get; set; }
+        public bool IsFullDay { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -102,6 +102,16 @@ namespace DevCom.Controllers
         }
 
         [HttpPost]
+        public EmptyResult Update_Note_Title(Notepad _notepad)
+        {
+            var notepad = db.Notepads.Where(x => x.Notepad_Id.Equals(_notepad.Notepad_Id)).First();
+            notepad.Title = _notepad.Title;
+            notepad.Update_Date = DateTime.Now;
+            db.SaveChanges();
+            return null;
+        }
+
+        [HttpPost]
         [ValidateInput(false)]
         public EmptyResult Update(Text _text)
         {
@@ -458,7 +468,7 @@ namespace DevCom.Controllers
                     db.Files.Add(content);
                     db.SaveChanges();
 
-                    content.File_Id = "i_" + content.Id.ToString();
+                    content.File_Id = "f_" + content.Id.ToString();
 
                     db.SaveChanges();
                     nc.Content_Id = content.File_Id;
@@ -474,6 +484,40 @@ namespace DevCom.Controllers
             return null;
         }
 
-        
+        public EmptyResult ShiftContentRow(RowShiftVM model)
+        {
+            var content = db.NoteContents.Where(x => x.Notepad_Id.Equals(model.Notepad_Id)).ToList();
+            if(model.Direction == "up")
+            {
+                for (int i = 1; i < content.Count; i++)
+                {
+                    if (content[i].Content_Id == model.Content_Id)
+                    {
+                        var temp = content[i].Content_Id;
+                        content[i].Content_Id = content[i - 1].Content_Id;
+                        content[i - 1].Content_Id = temp;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < content.Count-1; i++)
+                {
+                    if (content[i].Content_Id == model.Content_Id)
+                    {
+                        var temp = content[i].Content_Id;
+                        content[i].Content_Id = content[i + 1].Content_Id;
+                        content[i + 1].Content_Id = temp;
+                        break;
+                    }
+                }
+            }
+
+            db.SaveChanges();
+            return null;
+        }
+
+
     }
 }

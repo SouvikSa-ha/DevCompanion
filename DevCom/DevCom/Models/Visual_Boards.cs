@@ -25,6 +25,9 @@ namespace DevCom.Models
         public int Board_Id { get; set; }
         public int Uid { get; set; }
         public Nullable<int> Tag_Id { get; set; }
+        public string Title { get; set; }
+        public System.DateTime Creation_Date { get; set; }
+        public System.DateTime Update_Date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoardComponent> BoardComponents { get; set; }

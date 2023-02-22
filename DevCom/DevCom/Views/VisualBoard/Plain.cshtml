@@ -1,0 +1,35 @@
+﻿
+@{ 
+    string[] str = new string[] { "a", "b", "c" };
+}
+<button id="bt" onclick="a()">click</button>
+
+@section Scripts{
+    <script type="text/javascript">
+        var ob2 = @Html.Raw(Json.Encode(str));
+        console.log(ob2);
+        var obj = ["hello", "bye"];
+        var id = 'bt';
+        function a() {
+
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                data: { s: ["hello", "bye"] } ,
+                url: "/VisualBoard/Another",
+                success: function (data) {
+                    element = $('#' + id);
+                    element.id = data.msg;
+                    console.log(element.id);
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+    </script>
+}

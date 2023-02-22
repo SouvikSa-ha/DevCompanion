@@ -119,10 +119,12 @@
           </Key>
           <Property Name="Reminder_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Uid" Type="int" Nullable="false" />
-          <Property Name="Reminder_Time" Type="varchar" MaxLength="1" />
-          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Reminder_Time" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Info" Type="nvarchar(max)" />
-          <Property Name="Deadline" Type="datetime" Nullable="false" />
+          <Property Name="Deadline" Type="datetime" />
+          <Property Name="ThemeColor" Type="nvarchar" MaxLength="10" />
+          <Property Name="IsFullDay" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tags">
           <Key>
@@ -215,6 +217,9 @@
           <Property Name="Board_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Uid" Type="int" Nullable="false" />
           <Property Name="Tag_Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Creation_Date" Type="datetime" Nullable="false" />
+          <Property Name="Update_Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Workflow_Designs">
           <Key>
@@ -746,10 +751,12 @@
           </Key>
           <Property Name="Reminder_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Uid" Type="Int32" Nullable="false" />
-          <Property Name="Reminder_Time" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Reminder_Time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Info" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Deadline" Type="DateTime" Precision="3" />
+          <Property Name="ThemeColor" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IsFullDay" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK__Reminders__Uid__286302EC" FromRole="Reminders" ToRole="Users" />
           <NavigationProperty Name="Update_Histories" Relationship="Self.FK__Update_Hi__Remin__71D1E811" FromRole="Reminders" ToRole="Update_Histories" />
         </EntityType>
@@ -870,6 +877,9 @@
           <Property Name="Board_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Uid" Type="Int32" Nullable="false" />
           <Property Name="Tag_Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Update_Date" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="BoardComponents" Relationship="Self.FK__BoardComp__Board__6B24EA82" FromRole="Visual_Boards" ToRole="BoardComponents" />
           <NavigationProperty Name="Collaborations" Relationship="Self.FK__Collabora__Board__656C112C" FromRole="Visual_Boards" ToRole="Collaboration" />
           <NavigationProperty Name="Tag" Relationship="Self.FK__Visual_Bo__Tag_I__7F2BE32F" FromRole="Visual_Boards" ToRole="Tags" />
@@ -1407,6 +1417,8 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
                 <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="ThemeColor" ColumnName="ThemeColor" />
+                <ScalarProperty Name="IsFullDay" ColumnName="IsFullDay" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1507,6 +1519,9 @@
                 <ScalarProperty Name="Board_Id" ColumnName="Board_Id" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
                 <ScalarProperty Name="Tag_Id" ColumnName="Tag_Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+                <ScalarProperty Name="Update_Date" ColumnName="Update_Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

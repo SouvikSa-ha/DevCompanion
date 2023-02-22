@@ -4,26 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="84d6e798facb472389cbeddaf42387fa" Name="Diagram1">
-        <EntityTypeShape EntityType="DevCom_DBModel.Audio" Width="1.5" PointX="5.25" PointY="23.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.BoardComponent" Width="1.5" PointX="10.5" PointY="30.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Canvas" Width="1.5" PointX="5.25" PointY="26.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Collaboration" Width="1.5" PointX="3" PointY="23.125" IsExpanded="true" />
+      <Diagram DiagramId="b850925362e44f5c86f641cb8d179a1d" Name="Diagram1" ZoomLevel="25">
+        <EntityTypeShape EntityType="DevCom_DBModel.Audio" Width="1.5" PointX="5.25" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.BoardComponent" Width="1.5" PointX="10.5" PointY="31.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Canvas" Width="1.5" PointX="5.25" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Collaboration" Width="1.5" PointX="10.5" PointY="24" IsExpanded="true" />
         <EntityTypeShape EntityType="DevCom_DBModel.Color_Palletes" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.File" Width="1.5" PointX="5.25" PointY="29.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Image" Width="1.5" PointX="5.25" PointY="33" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.NoteContent" Width="1.5" PointX="10.5" PointY="27" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Notepad" Width="1.5" PointX="8.25" PointY="26.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.PersonalVault" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Reminder" Width="1.5" PointX="3" PointY="19.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Tag" Width="1.5" PointX="3" PointY="31" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Task" Width="1.5" PointX="3" PointY="42.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Text" Width="1.5" PointX="5.25" PointY="36.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.File" Width="1.5" PointX="5.25" PointY="30.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Image" Width="1.5" PointX="5.25" PointY="33.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.NoteContent" Width="1.5" PointX="10.5" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Notepad" Width="1.5" PointX="8.25" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.PersonalVault" Width="1.5" PointX="3" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Reminder" Width="1.5" PointX="3" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Tag" Width="1.5" PointX="3" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Task" Width="1.5" PointX="3" PointY="43.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Text" Width="1.5" PointX="5.25" PointY="37" IsExpanded="true" />
         <EntityTypeShape EntityType="DevCom_DBModel.UI_Designs" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Update_Histories" Width="1.5" PointX="10.5" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.User" Width="1.5" PointX="0.75" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Video" Width="1.5" PointX="5.25" PointY="39.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DevCom_DBModel.Visual_Boards" Width="1.5" PointX="8.25" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Update_Histories" Width="1.5" PointX="10.5" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.User" Width="1.5" PointX="0.75" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Video" Width="1.5" PointX="5.25" PointY="40.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevCom_DBModel.Visual_Boards" Width="1.5" PointX="8.25" PointY="31" IsExpanded="true" />
         <EntityTypeShape EntityType="DevCom_DBModel.Workflow_Designs" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="DevCom_DBModel.FK__Audios__Tag_Id__7B5B524B" ManuallyRouted="false" />
         <AssociationConnector Association="DevCom_DBModel.FK__BoardComp__Board__6B24EA82" ManuallyRouted="false" />

@@ -1,0 +1,196 @@
+﻿@using DevCom.Models
+@model DevCom.Models.ViewModels.BoardVM
+
+@{ 
+    DevCom_DBEntities db = new DevCom_DBEntities();
+    string[] contents = new string[Model.BoardComponents.Count()];
+    int[] x_s = new int[Model.BoardComponents.Count()];
+    int[] y_s = new int[Model.BoardComponents.Count()];
+
+    int i = 0;
+    foreach (var item in Model.BoardComponents)
+    {
+        if (item.Content_Id.Contains(Model.textsubstr)){
+            contents[i] = item.Content_Id;
+            x_s[i] = item.PositionX;
+            y_s[i] = item.PositionY;
+        }
+        i++;
+    }
+}
+<style>
+    .close_ui {
+        float: left;
+        cursor: pointer;
+    }
+</style>
+<h1 class="text-center w-auto"></h1>
+
+<div class="container-fluid vh-100">
+    <div class="row h-100">
+        <div class="col-sm-1 h-100" style="background-color: #004f83;">
+            <button class="btn m-2 border border-2" id="text"><i class='bx bx-text bx-lg'></i></button>
+            <button class="btn m-2 border border-2" id="link"><i class='bx bx-link bx-lg'></i></button>
+            <button class="btn m-2  border border-2" id="image"><i class='bx bx-images bx-lg'></i></button>
+            <button class="btn m-2  border border-2" id="audio"><i class='bx bxs-microphone-alt bx-lg'></i></button>
+            <button class="btn m-2  border border-2" id="video"><i class='bx bxs-videos bx-lg'></i></button>
+            <button class="btn m-2  border border-2" id="palette"><i class='bx bxs-palette bx-lg'></i></button>
+            <button class="btn m-2  border border-2" id="line"><i class='bx bx-arrow-back bx-lg'></i></button>
+        </div>
+        <div class="col h-100">
+            <div class="row justify-content-between">
+                <div class="col d-flex align-items-top">
+                    <h3 class="me-2">@Model.Visual_Board.Title</h3>
+                    <span class="text-muted"><small><b>(@Model.Visual_Board.Board_Id)</b></small></span>
+                </div>
+                <div class="col text-end">
+                    <div class="text-info"><small><b>auto saving...</b></small></div>
+                    <div class="text-success"><small><b>updated</b></small></div>
+                </div>
+            </div>
+            <div class="row position-relative" id="board-container">
+                @foreach (var item in Model.BoardComponents)
+                {
+                    if (item.Content_Id.Contains(Model.textsubstr))
+                    {
+                        var text = db.Texts.Where(x => x.Text_Id.Equals(item.Content_Id)).First();
+                        <div class='border border-2 border-dark 
+                             p-2 h-auto position-absolute component 
+                             bg-light' contenteditable='true' id=@item.Content_Id 
+                             style='width: 300px; max-width: 300px;'>@text.Text1</div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        let text_div = $('#text-div');
+        let img_div = $('#img-div');
+        let aud_div = $('#aud-div');
+        let vid_div = $('#vid-div');
+        let link_div = $('#link-div');
+        let plt_div = $('#plt-div');
+        let arw_div = $('#arw-div');
+
+        let board_id = @Model.Visual_Board.Board_Id;
+        window.board_id = @Model.Visual_Board.Board_Id;
+        let content_id = @Html.Raw(Json.Encode(contents));
+        let x_poses = @Html.Raw(Json.Encode(x_s));
+        let y_poses = @Html.Raw(Json.Encode(y_s));
+
+        for (let index = 0; index < content_id.length; index++) {
+            content_id[i].css({ top: y_poses[i], left: x_poses[i] });
+            content_id[i].on("dragstop", function () {
+                timer = 0;
+                db_text($(this).attr('id'), $(this).text());
+            });
+            content_id[i].on("DOMSubtreeModified", function () {
+                timer = 0;
+                db_text($(this), $(this).text());
+            });
+        }
+
+        $('.a').draggable();
+        $('.a').on("dragstop", function () {
+            console.log($(this).attr('id'));
+        })
+        //text_div.prop('hidden', true);
+        //img_div.prop('hidden', true);
+
+        $(document).ready(function () {
+            var timer = 0;
+
+            var text_id = 1;
+            $('#text').click(function (e) {
+                var newText = $("<div class='border border-2 border-dark p-2 h-auto position-absolute component bg-light' contenteditable='true' id='text-div-" + text_id + "' style='width: 300px; max-width: 300px;'></div>").draggable({ stack: ".component" });
+                text_id++;
+                $("#board-container").append(newText);
+
+                $('#board-container').on('click', 'i.close_ui', function () {
+                    //ajax here
+                    $(this).parent().remove();
+                });
+                
+
+                console.log(newText.attr('id'));
+
+
+                newText.on("dragstop", function () {
+                    timer = 0;
+                    db_text($(this).attr('id'), $(this).text());
+                });
+                newText.on("DOMSubtreeModified", function () {
+                    timer = 0;
+                    db_text($(this), $(this).text());
+                });
+            });
+
+            $('#board-container').on('click', '.component', function () {
+                var maximum = getMax('.component');
+                $(this).css('z-index', maximum + 1);
+            })
+
+            window.setInterval(() => {
+                timer++;
+                if (timer == 5) {
+                    console.log('saving');
+                }
+                else {
+                    console.log("saving interrupted")
+                }
+            }, 1000);
+        });
+
+        var max = 0;
+        function getMax(item) {
+            $(item).each(function () {
+                var z = $(this).css('z-index');
+                if (z == 'auto') z = 1;
+                max = Math.max(max, z);
+            })
+            return max;
+        }
+
+        function db_text(e, data) {
+            var pos = e.position();
+            var obj = {
+                Text_Id: data,
+                Text1: e.attr('id'),
+                X_pos: pos.left,
+                Y_pos: pos.top,
+                Board_Id: board_id
+            };
+
+            $.ajax({
+                type: "POST",
+                data: obj,
+                url: "/VisualBoard/Update_Text",
+                success: function (data) {
+                    element = $('#' + id);
+                    element.unbind();
+                    element.id = data.msg;
+                    element.on("dragstop", function () {
+                        timer = 0;
+                        db_text(element.id, element.text());
+                    });
+                    element.on("DOMSubtreeModified", function () {
+                        timer = 0;
+                        db_text(element.id, element.text());
+                    });
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
+    </script>
+}

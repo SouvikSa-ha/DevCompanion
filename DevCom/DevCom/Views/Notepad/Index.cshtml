@@ -196,6 +196,10 @@
                                 </button>
                             </div>
                             <div class="col text-end">
+                                <button class="btn note-edit-btn" onclick="enable_title_edit(this)"
+                                        style="height: 30px">
+                                    <i class="fas fa-solid fa-edit changable-icon"></i>
+                                </button>
                                 <button class="btn">
                                     <i class="fa fa-history" aria-hidden="true"></i>
                                 </button>
@@ -206,7 +210,7 @@
                         </div>
                         <div class="row overflow-auto" style="min-height: 400px; max-height:400px;">
 
-                            <h1 class="display-5 fw-bold">@_notepad.Title</h1>
+                            <h1 id="@_notepad.Notepad_Id" class="display-5 fw-bold">@_notepad.Title</h1>
                             <h4>Creation Date: @_notepad.Creation_Date</h4>
                             <h4>Update Date: @_notepad.Update_Date</h4>
 
@@ -255,13 +259,31 @@
                                                         }
                                                     </button>
                                                     <!-- Shifting to be continued -->
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-upvote'></i>
-                                                    </button>
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-downvote'></i>
-                                                    </button>
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).First())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
 
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).Last())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
                                                     <button class="btn note-edit-btn" onclick="edit_and_save(this)"
                                                             style="height: 30px">
                                                         <i class="fas fa-solid fa-edit changable-icon"></i>
@@ -309,13 +331,31 @@
                                                             <span>add tag</span>
                                                         }
                                                     </button>
-                                                    <!-- Shifting to be continued -->
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-upvote'></i>
-                                                    </button>
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-downvote'></i>
-                                                    </button>
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).First())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).Last())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
 
                                                     <button type="button" class="btn " data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal" onclick="getContentId(this)"
@@ -355,12 +395,31 @@
                                                         }
                                                     </button>
                                                     <!-- Shifting to be continued -->
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-upvote'></i>
-                                                    </button>
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-downvote'></i>
-                                                    </button>
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).First())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).Last())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
 
                                                     <button type="button" class="btn " data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal" onclick="getContentId(this)"
@@ -400,12 +459,31 @@
                                                         }
                                                     </button>
                                                     <!-- Shifting to be continued -->
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-upvote'></i>
-                                                    </button>
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-downvote'></i>
-                                                    </button>
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).First())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).Last())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
 
                                                     <button type="button" class="btn " data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal" onclick="getContentId(this)"
@@ -444,12 +522,31 @@
                                                         }
                                                     </button>
                                                     <!-- Shifting to be continued -->
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-upvote'></i>
-                                                    </button>
-                                                    <button type="button" class="btn" style="height: 30px">
-                                                        <i class='bx bxs-downvote'></i>
-                                                    </button>
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).First())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'up')">
+                                                            <i class='bx bxs-upvote'></i>
+                                                        </button>
+                                                    }
+
+                                                    @if (item == Model.Content_ids.ElementAt(noteIndex).Last())
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" disabled onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn" id="@item" style="height: 30px" onclick="shift_rows(this, 'down')">
+                                                            <i class='bx bxs-downvote'></i>
+                                                        </button>
+                                                    }
 
                                                     <button type="button" class="btn " data-bs-toggle="modal"
                                                             data-bs-target="#deleteModal" onclick="getContentId(this)"
@@ -470,7 +567,7 @@
                                 <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#addTextModal">
                                     + Add Text
                                 </button>
-                                <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
+                                <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#uploadFileModal" onclick="dp()">
                                     + Add File
                                 </button>
                                 <button type="button" class="btn border-primary" data-bs-toggle="modal" data-bs-target="#addDrawingModal">
@@ -835,6 +932,9 @@
         var noteIndex = @noteIndex;
         window.noteIndex = @noteIndex;
 
+        var _notepad_ = @_notepad.Notepad_Id;
+        window.noteid = @_notepad.Notepad_Id;
+
         for (var i = 0; i < buttons.length; i++) {
             (i != noteIndex) ? buttons[i].classList.remove('active') : buttons[i].classList.add('active');
         }
@@ -891,6 +991,52 @@
 
             })
         })
+
+        function enable_title_edit(e) {
+            let area = e.parentElement.parentElement.nextElementSibling.children[0];
+            //console.log(area.id);
+            let icon = e.children[0];
+            
+            if (area.isContentEditable) {
+                area.setAttribute("contenteditable", false);
+                icon.classList.remove("fa-check");
+                icon.classList.add("fa-edit");
+                edit_note_title(area);
+            }
+            else {
+                area.setAttribute("contenteditable", true);
+                icon.classList.remove("fa-edit");
+                icon.classList.add("fa-check");
+            }
+            
+        } 
+
+        function edit_note_title(area) {
+            var title = area.innerHTML;
+
+            var id = area.id;
+
+            var obj = {
+                Notepad_Id: id,
+                Title: title
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "text/plain; charset=utf-8",
+                data: obj,
+                url: "/Notepad/Update_Note_Title",
+                success: function () {
+                    window.location.href = "/Notepad/Index";
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    window.location.href = "/Notepad/Index";
+                }
+            })
+        }
 
         function edit_and_save(e){
             //console.log("Clicked")
@@ -1030,7 +1176,7 @@
         function manage_tags() {
             if (tag_name_selected == "New") {
                 var temp = $('#tag-name-input').val();
-                if (temp == "" || temp == "New") {
+                if (temp == "" || temp == "New" || temp == "new") {
                     alert("Invalid tag");
                     return;
                 }
@@ -1071,7 +1217,7 @@
         function manage_content_tags() {
             if (tag_name_selected == "New") {
                 var temp = $('#tag-name-input2').val();
-                if (temp == "" || temp == "New") {
+                if (temp == "" || temp == "New" || temp == "new") {
                     alert("Invalid tag");
                     return;
                 }
@@ -1105,38 +1251,74 @@
             })
         }
 
+        function shift_rows(e, dir) {
+            var obj = {
+                Notepad_Id: _notepad_,
+                Content_Id: e.id,
+                Direction: dir
+            }
+            $.ajax({
+                type: "POST",
+                data: obj,
+                url: "/Notepad/ShiftContentRow",
+                success: function () {
+                    window.location.href = "/Notepad/Index";
+                },
+                failure: function () {
+                    alert("failed");
+                },
+                error: function () {
+                    alert("error");
+                }
+            })
+        }
+
         $('#image-id-list').prop('hidden', false);
         $('#audio-id-list').prop('hidden', true);
         $('#video-id-list').prop('hidden', true);
         $('#file-id-list').prop('hidden', true);
 
+        var file_type_selected = 'Image';
+
+        var extensions = ['.jpg', '.jpeg', '.png', '.gif'];
+
         function change_file_type_selection(val) {
             file_type_selected = val.value;
-            console.log(file_type_selected);
             if (val.value == 'Image') {
                 $('#image-id-list').prop('hidden', false);
                 $('#audio-id-list').prop('hidden', true);
                 $('#video-id-list').prop('hidden', true);
                 $('#file-id-list').prop('hidden', true);
+                var _extensions = ['.jpg', '.jpeg', '.png', '.gif'];
+                extensions = _extensions.slice();
             }
             else if (val.value == 'Audio') {
                 $('#image-id-list').prop('hidden', true);
                 $('#audio-id-list').prop('hidden', false);
                 $('#video-id-list').prop('hidden', true);
                 $('#file-id-list').prop('hidden', true);
+                var _extensions = ['.aac', '.wav', '.m4a', '.mp3'];
+                extensions = _extensions.slice();
             }
             else if (val.value == 'Video') {
                 $('#image-id-list').prop('hidden', true);
                 $('#audio-id-list').prop('hidden', true);
                 $('#video-id-list').prop('hidden', false);
                 $('#file-id-list').prop('hidden', true);
+                var _extensions = ['.mp4', '.webm'];
+                extensions = _extensions.slice();
             }
             else if (val.value == 'PDF') {
                 $('#image-id-list').prop('hidden', true);
                 $('#audio-id-list').prop('hidden', true);
                 $('#video-id-list').prop('hidden', true);
                 $('#file-id-list').prop('hidden', false);
+                var _extensions = ['.pdf'];
+                extensions = _extensions.slice();
             }
+            console.log(extensions);
+            $('#dropArea').unbind();
+            dp();
         }
 
         var file_id_selected = "New";
@@ -1173,15 +1355,15 @@
             })
         }
 
-        $(function () {
+        function dp() {
             $('#dropArea').filedrop({
+                allowedfileextensions: extensions,
                 url: '@Url.Action("UploadFiles")',
-                allowedfileextensions: ['.jpg', '.jpeg', '.png', '.gif', '.aac', '.wav', '.m4a', '.mp3', '.mp4', '.webm', '.pdf'],
                 paramname: 'files',
                 data: {
                     content_type: function () {
                         var val = document.getElementById('file_id_selected').value;
-                        return val;           
+                        return val;
                     },
                 },
                 maxfiles: 1,
@@ -1199,10 +1381,12 @@
                     window.location.href = "/Notepad/Index";
                 },
                 uploadFinished: function (i, file, response, time) {
-                    
+
                 }
             })
-        })
+        }
+
+        
 
     </script>
 

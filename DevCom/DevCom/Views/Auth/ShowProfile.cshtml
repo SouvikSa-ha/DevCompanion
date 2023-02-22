@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/Shared/_BootstrapLayout.cshtml";
+}
+
+<section class="vh-100" style="background-color: #191a1c;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-10 mb-4 mb-lg-0">
+                <div class="row gutters-sm">
+                    <div class="card mb-3 bg-secondary" style="border-radius: .5rem;">
+                        <div class="row g-0">
+                            <div class="col-md-4 text-center text-white"
+                                 style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                                     alt="Avatar" class="img-fluid my-5"/>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4">
+                                    <h6>Information</h6>
+                                    <div class="card-body bg-secondary">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Username</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Kshiti Ghelani</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>some</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>someme</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Alter Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Banani</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Registration Date</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>date</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                @Html.ActionLink("Edit", "EditProfile", null, new { @class = "btn btn-primary" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @Html.ActionLink("Change Password", "ChangePassword", null, new { @class = "btn btn-primary" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
