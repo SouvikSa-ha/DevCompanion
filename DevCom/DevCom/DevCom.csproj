@@ -215,6 +215,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\icons\brush.svg" />
+    <Content Include="Assets\icons\circle.svg" />
+    <Content Include="Assets\icons\eraser.svg" />
+    <Content Include="Assets\icons\rectangle.svg" />
+    <Content Include="Assets\icons\triangle.svg" />
     <Content Include="Assets\profile.jpeg" />
     <Content Include="Assets\profile_1.jpeg" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -234,6 +239,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\HomeStyle.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -298,6 +304,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\NotepadEdit.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -331,6 +338,7 @@
     <Content Include="Views\Reminder\Index.cshtml" />
     <Content Include="Views\VisualBoard\Board.cshtml" />
     <Content Include="Views\VisualBoard\Plain.cshtml" />
+    <Content Include="Views\VisualBoard\Canvas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

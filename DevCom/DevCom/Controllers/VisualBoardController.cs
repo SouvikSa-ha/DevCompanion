@@ -84,5 +84,10 @@ namespace DevCom.Controllers
             var uid = Convert.ToInt32(Session["UidSS"]);
             return Json(new { msg = "t_101" }); 
         }
+
+        public ActionResult Canvas()
+        {
+            return View();
+        }
     }
 }
